@@ -1,0 +1,16 @@
+<div class="container">
+	<h2><%= @user.first_name %> <%= @user.last_name %></h2>
+	<p>Email address: <%= @user.email %></p>
+	<p>Gender: <%= @user.gender %></p>
+	<p><%= link_to "See Teams", teams_url %></p>
+	<p><em>To do: Add ability to edit this profile</em></p>
+	<% if @user.teams %>
+	<p>My teams:</p>
+	<ul>
+		<% @user.teams.each do |team| %>
+		<li><%= link_to team.name, team_url(team) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<p><%= link_to "Edit User Information", edit_user_url(@user)%>
+</div>

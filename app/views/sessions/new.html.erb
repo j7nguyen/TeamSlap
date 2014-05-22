@@ -1,0 +1,14 @@
+<div class="container">
+
+	<form class="form-signin" role='form' action="<%= session_url %>" method="post">
+		<h2 class='form-signin-heading'>Please Sign In</h2>
+  <%= auth_token_input %>
+ 
+    <input class='form-control' type="text" name="session[email]" placeholder='Email address' required autofocus>
+    <input class='form-control' type="password" name="session[password]" placeholder='Password' required>
+
+	
+	<button class='btn btn-lg btn-primary btn-block' type='submit'>Sign In</button>
+</form>
+
+</div>

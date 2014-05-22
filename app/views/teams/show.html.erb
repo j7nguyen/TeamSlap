@@ -1,0 +1,57 @@
+
+<% team = Team.find(params[:id]) %>
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-1">
+<h2><%= team.name %></h2>
+<p>Sport: <%= team.sport %></p>
+<% manager = User.find(team.manager_id) %>
+<p>Manager: <%= manager.first_name %> <%= manager.last_name%></p>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-1">
+<h3>Roster</h3>
+<table class="table-striped">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Gender</th>
+
+	</tr>
+	<% team.roster_adds.each do |roster_add| %>
+	
+	<tr>
+		<td><%= roster_add.user.first_name %></td>
+		<td><%= roster_add.user.last_name %></td>
+		<td><%= roster_add.user.gender %></td>
+		<% if current_user.id == team.manager_id%>
+		<td><%= button_to "Delete Player", team_roster_add_url(team, roster_add), method: :delete %></td>
+		<% end %>
+	</tr>
+
+	<% end %>
+	
+</table>
+	</div> 
+</div>
+<% if current_user.id == team.manager_id %>
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-1">
+	<p>Add a Player to the Roster:</p>
+<form action="<%= team_roster_adds_url(params[:id])  %>" method="POST">
+	<%= auth_token_input %>
+	<label>Player's Email address:
+		<input type="text" name="roster[player_email]">
+	</label>
+	<input type="hidden" name="roster[team_id]" 
+	value="<%= params[:id] %>">
+	<input type="submit" value="Add Player">
+</form>	
+</div>
+</div>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-6 col-xs-offset-1">
+<p><%= link_to "Back to all teams", teams_url %></p>
+</div>

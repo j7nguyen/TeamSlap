@@ -1,0 +1,42 @@
+<% action_url = signed_in? ? user_url(user) : users_url %>
+
+<form action='<%= action_url %>' method="post">
+	  <%= auth_token_input %>
+
+
+	
+	<label>Email
+		<input name='user[email]' type='text' value="<%= user.email%>">
+	</label>
+	<% if signed_in? %>
+		<input type="hidden" name="_method" value="patch">
+		<% else %>
+	<label>Password
+		<input name='user[password]' type='password'>
+	</label>
+	<% end %>
+	<br><br>
+	<label>First Name
+		<input name='user[first_name]' type='text' value="<%= user.first_name%>">
+	</label>
+	<label>Last Name
+		<input name='user[last_name]' type='text' value="<%= user.last_name%>">
+	</label>
+	<br>
+	<p>Gender:
+		<input type="radio" 
+		name="user[gender]" 
+		value="Male" 
+		id="user_gender_male"
+		<%= 'checked' if user.gender=='Male' %>
+		>
+		<label for="user_gender_male">Male</label>
+		<input type="radio" name="user[gender]" value="Female" id="user_gender_female" 		<%= 'checked' if user.gender=='Female' %>>
+		<label for="user_gender_female">Female</label>
+		<input type="radio" name="user[gender]" value="Other" id="user_gender_other" 		<%= 'checked' if user.gender=='Other' %>>
+		<label for="user_gender_other">Other</label>
+	</p>
+
+<input type='submit' value='Submit'>
+	
+</form>
