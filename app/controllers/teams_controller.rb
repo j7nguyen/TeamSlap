@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   
   def new
+    @sports = Sport.all
   end
   
   def create
@@ -24,7 +25,7 @@ class TeamsController < ApplicationController
   private
   
   def team_params
-    params.require(:team).permit(:name, :sport, :manager_id)
+    params.require(:team).permit(:name, :sport_id, :manager_id)
   end
   
 end

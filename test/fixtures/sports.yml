@@ -1,26 +1,17 @@
 # == Schema Information
 #
-# Table name: teams
+# Table name: sports
 #
 #  id         :integer          not null, primary key
 #  name       :string(255)      not null
-#  manager_id :integer          not null
-#  league_id  :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  sport_id   :integer          not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   name: MyString
-  sport: MyString
-  manager_id: 1
-  league_id: 1
 
 two:
   name: MyString
-  sport: MyString
-  manager_id: 1
-  league_id: 1

@@ -1,0 +1,18 @@
+<h1>Create a new League!</h1>
+<form action='<%= leagues_url %>' method="POST">
+	<%= auth_token_input %>
+	
+		<input name='league[league_manager_id]' type='hidden' value='<%=current_user.id %>'>
+
+	<label>League
+		<input name='league[name]' type='text'>
+	</label>
+
+	<select name='league[sport_id]'>
+		<% @sports.each do |sport| %>
+		<option value='<%= sport.id %>'><%= sport.name %></option>
+		<% end %>
+	</select>
+<input type='submit' value='Submit'>
+	
+</end>

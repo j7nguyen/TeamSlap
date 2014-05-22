@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   
   has_many :roster_adds, class_name: "RosterAdd", foreign_key: :player_id
   has_many :teams, through: :roster_adds, source: :team
+  has_many :owned_teams, class_name: "Team", foreign_key: :manager_id
 
   def self.find_by_credentials(email, password)
     @user = User.find_by_email(email)
@@ -49,6 +50,10 @@ class User < ActiveRecord::Base
     self.session_token = self.class.generate_session_token
     self.save!
     self.session_token
+  end
+  
+  def name
+    return "#{self.first_name} #{self.last_name}"
   end
 
   private

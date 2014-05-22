@@ -2,8 +2,7 @@
 	<h2><%= @user.first_name %> <%= @user.last_name %></h2>
 	<p>Email address: <%= @user.email %></p>
 	<p>Gender: <%= @user.gender %></p>
-	<p><%= link_to "See Teams", teams_url %></p>
-	<p><em>To do: Add ability to edit this profile</em></p>
+
 	<% if @user.teams %>
 	<p>My teams:</p>
 	<ul>
@@ -12,5 +11,6 @@
 		<% end %>
 	</ul>
 	<% end %>
-	<p><%= link_to "Edit User Information", edit_user_url(@user)%>
+	<p><%= link_to "Edit User Information", edit_user_url(@user)%></p>
+
 </div>

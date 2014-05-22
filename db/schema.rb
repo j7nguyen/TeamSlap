@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521210550) do
+ActiveRecord::Schema.define(version: 20140522182812) do
+
+  create_table "leagues", force: true do |t|
+    t.integer  "sport_id",          null: false
+    t.integer  "league_manager_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name",              null: false
+  end
 
   create_table "roster_adds", force: true do |t|
     t.integer  "team_id",    null: false
@@ -20,13 +28,28 @@ ActiveRecord::Schema.define(version: 20140521210550) do
     t.datetime "updated_at"
   end
 
+  create_table "sports", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sports", ["name"], name: "index_sports_on_name", unique: true
+
+  create_table "team_adds", force: true do |t|
+    t.integer  "league_id",  null: false
+    t.integer  "team_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "teams", force: true do |t|
     t.string   "name",       null: false
-    t.string   "sport",      null: false
     t.integer  "manager_id", null: false
     t.integer  "league_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sport_id",   null: false
   end
 
   create_table "users", force: true do |t|

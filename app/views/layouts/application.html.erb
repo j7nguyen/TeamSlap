@@ -9,14 +9,22 @@
 </head>
 <body>
 
-<% if signed_in? %>
-  <p>Logged in as <%= link_to current_user.email, user_url(current_user)%></p>
-  <%= button_to "Log Out", session_url, method: :delete %>
-<% else %>
-  <%= link_to "Sign In", new_session_url %>
-  <%= link_to "Sign Up", new_user_url %>
-<% end %>
+<div class="row">
+	<div class="col-xs-4">
+	<% if signed_in? %>
+	  <p>Logged in as <%= link_to current_user.email, user_url(current_user)%></p>
+	  <%= button_to "Log Out", session_url, method: :delete %>
+	<% else %>
+	  <%= link_to "Sign In", new_session_url %>
+	  <%= link_to "Sign Up", new_user_url %>
+	<% end %>
+	</div>
 
+	<div class="col-xs-4">
+		<a class="btn btn-info" href='<%= teams_url %>'>See All Teams</a>
+		<a class="btn btn-warning" href='<%= leagues_url %>'>See All Leagues</a>
+	</div>
+</div>
 <% if flash[:errors] %>
   <ul>
     <% flash[:errors].each do |msg| %>
@@ -24,6 +32,8 @@
     <% end %>
   </ul>
 <% end %>
+
+
 
 <%= yield %>
 

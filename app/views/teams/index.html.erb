@@ -1,5 +1,6 @@
-<h1>All the Teams!</h1>
-<table>
+<div class="container">
+<h2>All the Teams!</h2>
+<table class="table table-striped table-bordered">
 	<tr>
 		<th>Team Name</th>
 		<th>Sport</th>
@@ -9,11 +10,12 @@
 	
 	<tr>
 		<td><%= link_to team.name, team_url(team) %></td>
-		<td><%= team.sport %></td>
+		<td><%= team.sport.name %></td>
 	</tr>
 	
 	<% end %>
 	
 </table>
 
-<%= link_to "Add a New Team", new_team_url %>
+<a href="<%= new_team_url %>" class="btn btn-success">Add Your Own Team</a>
+</div>

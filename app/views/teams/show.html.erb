@@ -2,16 +2,22 @@
 <% team = Team.find(params[:id]) %>
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">
-<h2><%= team.name %></h2>
-<p>Sport: <%= team.sport %></p>
-<% manager = User.find(team.manager_id) %>
-<p>Manager: <%= manager.first_name %> <%= manager.last_name%></p>
+		<h2><%= team.name %></h2>
+		<p>Sport: <%= team.sport.name %></p>
+		<p>Manager: <%= team.manager.first_name %> <%= team.manager.last_name%></p>
+		<p>League(s):</p>
+		<ul>
+			<% team.leagues.each do |league| %>
+			<li><%= link_to league.name, league_url(league) %></li>
+			<% end %>
+		</ul>
+	</div>
 </div>
-</div>
+
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">
 <h3>Roster</h3>
-<table class="table-striped">
+<table class="table table-striped table-bordered">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>

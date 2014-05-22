@@ -9,18 +9,11 @@
 	<label>Team Name
 		<input name='team[name]' type='text'>
 	</label>
-	<p>Sport:
-		<input type="radio" name="team[sport]" value="Soccer" id="team_sport_soccer">
-		<label for="team_sport_soccer">Soccer</label>
-		<input type="radio" name="team[sport]" value="Basketball" id="team_sport_basketball">
-		<label for="team_sport_basketball">Basketball</label>
-		<input type="radio" name="team[sport]" value="Softball" id="team_sport_softball">
-		<label for="team_sport_softball">Softball</label>
-		<input type="radio" name="team[sport]" value="Ultimate Frisbee" id="team_sport_ultimate">
-		<label for="team_sport_ultimate">Ultimate Frisbee</label>
-		<input type="radio" name="team[sport]" value="Other" id="team_sport_other">
-		<label for="team_sport_other">Other</label>
-	</p>
+	<select name='team[sport_id]'>
+		<% @sports.each do |sport| %>
+		<option value='<%= sport.id %>'><%= sport.name %></option>
+		<% end %>
+	</select>
 
 <input type='submit' value='Register Team!'>
 	
