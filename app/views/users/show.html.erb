@@ -3,14 +3,25 @@
 	<p>Email address: <%= @user.email %></p>
 	<p>Gender: <%= @user.gender %></p>
 
+	<% if @user.owned_teams %>
+	<p>Teams I Manage:</p>
+	<ul>
+		<% @user.owned_teams.each do |team| %>
+		<li><%= link_to team.name, team_url(team) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+
 	<% if @user.teams %>
-	<p>My teams:</p>
+	<p>Teams I Play On:</p>
 	<ul>
 		<% @user.teams.each do |team| %>
 		<li><%= link_to team.name, team_url(team) %></li>
 		<% end %>
 	</ul>
 	<% end %>
+
+
 	<p><%= link_to "Edit User Information", edit_user_url(@user)%></p>
 
 </div>

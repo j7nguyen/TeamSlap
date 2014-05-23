@@ -9,12 +9,15 @@
 	<label>Team Name
 		<input name='team[name]' type='text'>
 	</label>
+	<br>
+	<label>Sport
 	<select name='team[sport_id]'>
 		<% @sports.each do |sport| %>
 		<option value='<%= sport.id %>'><%= sport.name %></option>
 		<% end %>
 	</select>
-
+</label>
+<br>
 <input type='submit' value='Register Team!'>
 	
 </end>

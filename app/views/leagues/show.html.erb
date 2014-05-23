@@ -12,7 +12,7 @@
 			</tr>
 		<% @league.team_adds.each do |team_add| %>
 			<tr>
-				<td><%= team_add.team.name %></td>
+				<td><%= link_to team_add.team.name, team_url(team_add.team) %></td>
 				<td><%= team_add.team.manager.name %></td>
 				<% if current_user.id == @league.league_manager_id %>
 					<td><%= button_to "Remove Team from League", league_team_add_url(@league, team_add), method: :delete %></td>

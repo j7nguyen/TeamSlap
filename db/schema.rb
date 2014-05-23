@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522182812) do
+ActiveRecord::Schema.define(version: 20140523172417) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "games", force: true do |t|
+    t.integer  "league_id"
+    t.datetime "date_time",      null: false
+    t.integer  "team1_id",       null: false
+    t.integer  "team2_id",       null: false
+    t.integer  "team1_score"
+    t.integer  "team2_score"
+    t.integer  "location_id"
+    t.string   "location_other"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "leagues", force: true do |t|
     t.integer  "sport_id",          null: false
@@ -34,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140522182812) do
     t.datetime "updated_at"
   end
 
-  add_index "sports", ["name"], name: "index_sports_on_name", unique: true
+  add_index "sports", ["name"], name: "index_sports_on_name", unique: true, using: :btree
 
   create_table "team_adds", force: true do |t|
     t.integer  "league_id",  null: false
@@ -46,7 +62,6 @@ ActiveRecord::Schema.define(version: 20140522182812) do
   create_table "teams", force: true do |t|
     t.string   "name",       null: false
     t.integer  "manager_id", null: false
-    t.integer  "league_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sport_id",   null: false
@@ -63,6 +78,6 @@ ActiveRecord::Schema.define(version: 20140522182812) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end

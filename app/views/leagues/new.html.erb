@@ -8,11 +8,14 @@
 		<input name='league[name]' type='text'>
 	</label>
 
-	<select name='league[sport_id]'>
-		<% @sports.each do |sport| %>
-		<option value='<%= sport.id %>'><%= sport.name %></option>
-		<% end %>
-	</select>
+	<label>Sport
+		<select name='league[sport_id]'>
+			<% @sports.each do |sport| %>
+			<option value='<%= sport.id %>'><%= sport.name %></option>
+			<% end %>
+		</select>
+	</label>
+	<br>
 <input type='submit' value='Submit'>
 	
 </end>
