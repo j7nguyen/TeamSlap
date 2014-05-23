@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  before_filter :require_user!, :except => [:new, :create]
+  
   def create
     @user = User.new(user_params)
     @user.session_token = User.generate_session_token
