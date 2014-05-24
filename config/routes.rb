@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :leagues do
     resources :team_adds, only: [:create, :destroy]
+    resources :games
   end
   
   resources :teams do
@@ -10,5 +11,7 @@ Rails.application.routes.draw do
   end
   
   resources :users
+  resources :availabilities
+  
   resource :session, only: [:create, :new, :destroy]
 end

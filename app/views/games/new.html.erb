@@ -1,0 +1,46 @@
+<div class="container">
+	<h2>Add a new game</h2>
+	<p>You can choose matchups from teams in your league. Please choose from an
+		existing location or enter new location information accurately.</p>
+	
+		<form action="<%= league_games_url(@league) %>" method="post" role='form'>
+			<%= auth_token_input %>
+			<div class='form-group'>
+				<h3>Date/Time</h3>
+				<label>Date
+					<input type="date" class='form-control' name="game[date]">
+				</label>
+				<label>Time
+					<input type="time" class='form-control' name="game[time]">
+				</label>
+			</div>
+			<div class='form-group'>
+				<h3>Teams</h3>
+				<label>Home
+					<select name='game[team1_id]' class='form-control'>
+						<% @league.teams.each do |team| %>
+						<option value="<%= team.id %>"><%= team.name %></option>
+						<% end %>
+					</select>
+				</label>
+	
+				<label>Away
+					<select name='game[team2_id]' class='form-control'>
+						<% @league.teams.each do |team| %>
+						<option value="<%= team.id %>"><%= team.name %></option>
+						<% end %>
+					</select>
+				</label>
+			</div>
+			<div class='form-group'>
+				<h3>Location</h3>
+				<select name="game[location_id]">
+					<% @league.sport.locations.each do |location| %>
+					<option value="<%= location.id %>"> <%= location.name %></option>
+						<% end %>
+					</select>
+				</div>
+				<input type="hidden" name="game[league_id]" value="<%= @league.id %>">
+				<input type="submit" class="btn btn-primary" value="Add Game">
+			</form>
+		</div>

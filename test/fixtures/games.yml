@@ -4,7 +4,6 @@
 #
 #  id             :integer          not null, primary key
 #  league_id      :integer
-#  date_time      :datetime         not null
 #  team1_id       :integer          not null
 #  team2_id       :integer          not null
 #  team1_score    :integer
@@ -13,6 +12,8 @@
 #  location_other :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
+#  date           :string(255)      not null
+#  time           :string(255)      not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

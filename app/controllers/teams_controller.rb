@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_filter :require_user!, :except => [:new, :create]
   
   def new
     @sports = Sport.all

@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 users = User.create([
-  { email: 'vietjew@gmail.com', first_name: 'Joseph', last_name: 'Nguyen', 
+  { email: 'joseph@teamslap.com', first_name: 'Joseph', last_name: 'Nguyen', 
     gender: 'Male', password: 'foobar'},
-  { email: 'joe@vietjew.com', first_name: 'Joe', last_name: 'Nygen', 
+  { email: 'joe@teamslap.com', first_name: 'Joe', last_name: 'Nygen', 
     gender: 'Male', password: 'foobar'},
   { email: 'laurel@gmail.com', first_name: 'Laurel', last_name: 'Hoffman', 
     gender: 'Female', password: 'foobar'},
@@ -32,7 +32,10 @@ users = User.create([
   { email: 'tiger_fan@yahoo.com', first_name: 'Jeff', last_name: 'Mason', 
     gender: 'Male', password: 'foobar'},
   { email: 'bigup@yahoo.com', first_name: 'Robert', last_name: 'Julius', 
-    gender: 'Male', password: 'foobar'}
+    gender: 'Male', password: 'foobar'},
+  { email: 'dogluvr@earthlink.net', first_name: 'Maury', last_name: 'Argento', 
+    gender: 'Female', password: 'foobar'}
+    
   ])
   
 sports = Sport.create([
@@ -42,7 +45,24 @@ sports = Sport.create([
   { name: 'Softball' }, 
   { name: 'Ultimate Frisbee' }, 
   { name: 'Ice Hockey' }, 
-  { name: 'Jai Alai' } ])
+  { name: 'Jai Alai' } 
+  ])
+  
+locations = Location.create([
+  { name: 'Franklin Square', description: 'Turf field', address1: '2500 17th St',
+    city: 'San Francisco', state: 'CA', zip: 94110, sport_id: 1 },
+  { name: 'Silver Terrace', description: 'Turf field', address1: '1778 Silver Ave',
+    city: 'San Francisco', state: 'CA', zip: 94124, sport_id: 1 },
+  { name: 'Burton High School', description: 'Turf field', address1: '400 Mansell St',
+    city: 'San Francisco', state: 'CA', zip: 94134, sport_id: 1 },
+  { name: 'Beach Chalet', description: 'Grass field, in GG Park', 
+    address1: '1500 John F Kenney Dr', city: 'San Francisco', 
+    state: 'CA', zip: 94121, sport_id: 1 },
+  { name: 'Crocker Amazon', description: 'Turf field, corner of Geneva and Mosco', 
+    address1: '1539 Geneva Ave', city: 'San Francisco', state: 'CA', zip: 94112, sport_id: 1 },
+  { name: 'Washington High School', description: 'Turf field, enter on 30th', 
+    address1: '600 32nd Ave', city: 'San Francisco', state: 'CA', zip: 94121, sport_id: 1 }
+  ])
   
 leagues = League.create([
   {sport_id: 1, league_manager_id: 1, name: "Sunday 11v11 Coed"},
@@ -56,11 +76,11 @@ leagues = League.create([
 teams = Team.create([
   { name: "Bayern Eunuch", manager_id: 1, sport_id: 1 },
   { name: "Farcelona", manager_id: 2, sport_id: 1 },
-  { name: "Manchester Untied", manager_id: 3, sport_id: 1 },
+  { name: "Winchester United", manager_id: 3, sport_id: 1 },
   { name: "Liverfool", manager_id: 4, sport_id: 1 },
-  { name: "Athletico Undid", manager_id: 5, sport_id: 1 },
+  { name: "Schmelsea", manager_id: 5, sport_id: 1 },
   { name: "Earthquakers", manager_id: 6, sport_id: 1 },
-  { name: "Underdogs", manager_id: 7, sport_id: 1 },
+  { name: "Underdogs", manager_id: 14, sport_id: 1 },
   { name: "Jewventus", manager_id: 8, sport_id: 1 },
 
   { name: "Fakers", manager_id: 1, sport_id: 2 },

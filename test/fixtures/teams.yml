@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)      not null
 #  manager_id :integer          not null
-#  league_id  :integer
 #  created_at :datetime
 #  updated_at :datetime
 #  sport_id   :integer          not null

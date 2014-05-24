@@ -11,14 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523172417) do
+ActiveRecord::Schema.define(version: 20140524003815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "availabilities", force: true do |t|
+    t.integer  "player_id",       null: false
+    t.integer  "game_id",         null: false
+    t.integer  "available_value", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "availabilities", ["game_id"], name: "index_availabilities_on_game_id", using: :btree
+  add_index "availabilities", ["player_id", "game_id"], name: "index_availabilities_on_player_id_and_game_id", unique: true, using: :btree
+  add_index "availabilities", ["player_id"], name: "index_availabilities_on_player_id", using: :btree
+
   create_table "games", force: true do |t|
     t.integer  "league_id"
-    t.datetime "date_time",      null: false
     t.integer  "team1_id",       null: false
     t.integer  "team2_id",       null: false
     t.integer  "team1_score"
@@ -27,6 +38,8 @@ ActiveRecord::Schema.define(version: 20140523172417) do
     t.string   "location_other"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "date",           null: false
+    t.string   "time",           null: false
   end
 
   create_table "leagues", force: true do |t|
@@ -35,6 +48,19 @@ ActiveRecord::Schema.define(version: 20140523172417) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",              null: false
+  end
+
+  create_table "locations", force: true do |t|
+    t.string   "name",        null: false
+    t.string   "description"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.integer  "sport_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roster_adds", force: true do |t|

@@ -17,4 +17,6 @@ class League < ActiveRecord::Base
   has_many :teams, through: :team_adds, source: :team
   belongs_to :sport, foreign_key: :sport_id, class_name: "Sport"
   belongs_to :manager, foreign_key: :league_manager_id, class_name: "User"
+  has_many :locations, through: :sport, source: :locations
+  has_many :games, foreign_key: :league_id, class_name: "Game"
 end
