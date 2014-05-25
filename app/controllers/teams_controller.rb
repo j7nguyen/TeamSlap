@@ -17,6 +17,9 @@ class TeamsController < ApplicationController
   end
   
   def show
+    @team = Team.find(params[:id])
+    @roster = @team.roster_adds.map{ |roster_add| User.find(roster_add.player_id) }
+    @non_roster_players = User.all.select{ |player| !@roster.include?(player) }
   end
   
   def index

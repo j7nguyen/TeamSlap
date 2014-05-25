@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     return games.uniq
   end
   
+  def name
+    return "#{self.first_name} #{self.last_name}"
+  end
+  
   def self.find_by_credentials(email, password)
     @user = User.find_by_email(email)
     @user.try(:is_password?, password) ? @user : nil
@@ -69,9 +73,7 @@ class User < ActiveRecord::Base
     self.session_token
   end
   
-  def name
-    return "#{self.first_name} #{self.last_name}"
-  end
+
 
   private
 

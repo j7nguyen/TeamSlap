@@ -23,19 +23,6 @@ class Availability < ActiveRecord::Base
     self.available_value >= 0 && self.available_value <=3
   end
   
-  def avail_string
-    "test"
-    # fail
-#     case self.available_value
-#     when 0
-#       return "No response"
-#     when 1
-#       return "Available"
-#     when 2
-#       return "Unavailable"
-#     when 3
-#       return "Maybe"
-#     end
-  end
+ 
   
 end

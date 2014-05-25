@@ -10,8 +10,9 @@ Rails.application.routes.draw do
     resources :roster_adds, only: [:create, :destroy, :new]
   end
   
-  resources :users
-  resources :availabilities
+  resources :users do
+    resources :availabilities
+  end
   
   resource :session, only: [:create, :new, :destroy]
 end

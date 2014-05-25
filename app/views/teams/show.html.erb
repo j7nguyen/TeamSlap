@@ -17,13 +17,15 @@
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">
 <h3>Roster</h3>
-<table class="table table-striped table-bordered">
+<table class="roster table table-striped table-bordered">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Gender</th>
 
 	</tr>
+
+
 	<% team.roster_adds.each do |roster_add| %>
 	
 	<tr>
@@ -31,31 +33,59 @@
 		<td><%= roster_add.user.last_name %></td>
 		<td><%= roster_add.user.gender %></td>
 		<% if current_user.id == team.manager_id%>
-		<td><%= button_to "Delete Player", team_roster_add_url(team, roster_add), method: :delete %></td>
+		<td><button class='delete-player btn btn-danger' value="<%= roster_add.id %>">
+			Delete Player</button></td>
 		<% end %>
 	</tr>
-
 	<% end %>
-	
 </table>
 	</div> 
 </div>
+<script>
+$('.roster').on('click', 'button', function() {
+	var rosterAddId = this.value;
+	$(this).parent().parent()[0].remove();
+	playerRemove(rosterAddId, <%= team.id %>);
+});
+</script>
+
 <% if current_user.id == team.manager_id %>
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">
+		
 	<p>Add a Player to the Roster:</p>
-<form action="<%= team_roster_adds_url(params[:id])  %>" method="POST">
+	
+
+	
+<form id="add_player" >
 	<%= auth_token_input %>
-	<label>Player's Email address:
-		<input type="text" name="roster[player_email]">
+	<label>Other Registered Players
+		<select name="roster[player_email]" id="available-players">
+			<% @non_roster_players.each do |player| %>
+				<option value="<%=player.email %>">
+					<%= player.name %>
+				</option>
+			<% end %>
+		</select>
 	</label>
+
 	<input type="hidden" name="roster[team_id]" 
-	value="<%= params[:id] %>">
+		value="<%= params[:id] %>">
 	<input type="submit" value="Add Player">
 </form>	
 </div>
 </div>
 <% end %>
+<script>
+	$('#add_player').on('submit', function(event) {
+		event.preventDefault();
+		var formData = {roster: {
+			player_email: $("#available-players").val(),
+			team_id: <%= team.id %>
+		}}
+		playerAdd(formData, <%= team.id %>);
+	});
+</script>
 
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">

@@ -14,10 +14,17 @@ class RosterAddsController < ApplicationController
   end
   
   def destroy
+    # @roster_add = RosterAdd.find_by_player_id(params[:id])
+    # team = @roster_add.team
+    # @roster_add.destroy
+    # redirect_to team_url(team)
     @roster_add = RosterAdd.find(params[:id])
-    team = @roster_add.team
     @roster_add.destroy
-    redirect_to team_url(team)
+    
+    respond_to do |format|
+      format.html { head :no_content }
+      format.json { head :no_content }
+    end
   end
   
   private
