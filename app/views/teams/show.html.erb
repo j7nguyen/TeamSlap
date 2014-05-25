@@ -60,9 +60,9 @@ $('.roster').on('click', 'button', function() {
 <form id="add_player" >
 	<%= auth_token_input %>
 	<label>Other Registered Players
-		<select name="roster[player_email]" id="available-players">
+		<select name="roster[player_id]" id="available-players">
 			<% @non_roster_players.each do |player| %>
-				<option value="<%=player.email %>">
+				<option id='option-<%=player.id%>' value="<%=player.id %>">
 					<%= player.name %>
 				</option>
 			<% end %>
@@ -79,11 +79,12 @@ $('.roster').on('click', 'button', function() {
 <script>
 	$('#add_player').on('submit', function(event) {
 		event.preventDefault();
+		var playerId = $("#available-players").val();
 		var formData = {roster: {
-			player_email: $("#available-players").val(),
+			player_id: playerId,
 			team_id: <%= team.id %>
 		}}
-		playerAdd(formData, <%= team.id %>);
+		playerAdd(formData, <%= team.id %>, playerId);
 	});
 </script>
 

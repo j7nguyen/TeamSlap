@@ -23,14 +23,15 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @user, 
-        :include => { :availabilities => {
-                    :include => :avail_string,
-                    :except => [:created_at, :updated_at]
-        }, 
-        :except => [:created_at, :updated_at]
-        }
-      }
+      format.json { render json: @user }
+      # format.json { render json: @user, 
+      #   :include => { :availabilities => {
+      #               :include => :avail_string,
+      #               :except => [:created_at, :updated_at]
+      #   }, 
+      #   :except => [:created_at, :updated_at]
+      #   }
+      # }
       
       
       # format.json { render json: @user, include: [ 
