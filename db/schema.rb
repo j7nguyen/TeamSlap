@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20140524003815) do
   enable_extension "plpgsql"
 
   create_table "availabilities", force: true do |t|
-    t.integer  "player_id",       null: false
-    t.integer  "game_id",         null: false
-    t.integer  "available_value", null: false
+    t.integer  "player_id",                   null: false
+    t.integer  "game_id",                     null: false
+    t.integer  "available_value", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

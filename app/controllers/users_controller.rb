@@ -20,6 +20,27 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @user, 
+        :include => { :availabilities => {
+                    :include => :avail_string,
+                    :except => [:created_at, :updated_at]
+        }, 
+        :except => [:created_at, :updated_at]
+        }
+      }
+      
+      
+      # format.json { render json: @user, include: [ 
+      #   :availabilities, 
+      #   methods: [:avail_string],
+      #   except: [:created_at, :updated_at] 
+      # ], 
+      #   except: [:password_digest, :session_token, :created_at, :updated_at] 
+      # }
+    end
   end
   
   def edit

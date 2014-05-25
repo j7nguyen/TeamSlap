@@ -3,7 +3,7 @@ class CreateAvailabilities < ActiveRecord::Migration
     create_table :availabilities do |t|
       t.integer :player_id, null: false
       t.integer :game_id, null: false
-      t.integer :available_value, null: false
+      t.integer :available_value, null: false, default: 0
 
       t.timestamps
     end

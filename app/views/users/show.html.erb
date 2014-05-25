@@ -33,10 +33,11 @@
 			<th>Away Team</th>
 			<th>Location</th>
 			<th>Result</th>
+			<th>Availability</th>
 		</tr>
 
 		<% user_games.each do |game| %>
-		<tr>
+		<tr id="game_<%= game.id %>">
 			<td><%= game.league.name %></td>
 			<td><%= game.date %></td>
 			<td><%= game.time %></td>
@@ -44,13 +45,54 @@
 			<td><%= game.away_team.name %></td>
 			<td><%= game.location.name %></td>
 			<td><%= game.result %></td>
+			<td class="availability"></td>
 		</tr>
 			<% end %>
 			</table>
 	<% end %>
 <% end %>
+	
+<script type="application/json" id="user_games_data">
+			  { "avails": <%= @user.availabilities.to_json.html_safe %> }
+</script>
 
+<script type="text/template" id="game_info_template">
+    <%% 
+		var availStringer = function(avail) {
+			if (avail.available_value === 0) {
+				return "No response";
+			} else if (avail.available_value === 1) {
+				return "Available";
+			} else if (avail.available_value === 2) {
+				return "Not available";
+			} else {
+				return "Maybe";
+			}
+		}
 
+		_(avails).each(function (avail) {
+
+		%>
+		<tr>
+      <td id='avail-<%%=avail.id%>'><%%= availStringer(avail) %></td>
+	</tr>
+    <%% }); %>
+</script>
+
+<script type="application/javascript">
+  // templateCode is a string with the contents of the script tag.
+  var templateCode = $("#game_info_template").html();
+
+  // compile the template code to a JavaScript function
+  var templateFn = _.template(templateCode);
+	var data = JSON.parse($('#user_games_data').html());
+  // evaluate the template; producing html
+  var renderedContent = templateFn(data);
+
+  // finally, we can inject the content
+  $(".availability").html(renderedContent);
+</script>
+<script src=''></script>
 	
 
 	<p><%= link_to "Edit User Information", edit_user_url(@user)%></p>

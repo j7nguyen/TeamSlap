@@ -1,11 +1,10 @@
 class AvailabilitiesController < ApplicationController
     
   def create
-    @avail = Availability.new(avail_params)
-    if @avail.save
-      redirect_to user_url(@avail.player)
-    else
-      flash[:errors] = @avail.errors.full_messages
+    @avail = Availability.create!(avail_params)
+    respond_to do |format|
+      format.html { redirect_to game_url(Game.find(avail_params[:game_id])) }
+      format.json { render :json => @avail }
     end
   end
   

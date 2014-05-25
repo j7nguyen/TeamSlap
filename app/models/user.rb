@@ -29,6 +29,21 @@ class User < ActiveRecord::Base
   has_many :owned_teams, class_name: "Team", foreign_key: :manager_id
   has_many :availabilities, class_name: "Availability", foreign_key: :player_id
   
+  def is_available?(game_id)
+    yeses = self.availabilities.select{ |avail| avail.available_value == 1 }
+    yes_games = yeses.map{|yes| yes.game_id}
+    return yeses.include?(game_id)
+  end
+  
+  def games
+    games = []
+    
+    self.teams.each do |team|
+      games.concat(team.games)
+    end
+    
+    return games.uniq
+  end
   
   def self.find_by_credentials(email, password)
     @user = User.find_by_email(email)

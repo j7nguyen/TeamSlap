@@ -20,6 +20,22 @@ class Availability < ActiveRecord::Base
   belongs_to :game
   
   def ensure_valid_availability
-    self.available_value >= 0 && self.available_value <=2
+    self.available_value >= 0 && self.available_value <=3
   end
+  
+  def avail_string
+    "test"
+    # fail
+#     case self.available_value
+#     when 0
+#       return "No response"
+#     when 1
+#       return "Available"
+#     when 2
+#       return "Unavailable"
+#     when 3
+#       return "Maybe"
+#     end
+  end
+  
 end
