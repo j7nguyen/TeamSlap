@@ -12,6 +12,7 @@ class GamesController < ApplicationController
   
   def create
     @game = Game.new(game_params)
+    @league = League.find(params[:league_id])
     if @game.save
       redirect_to league_url(League.find(params[:league_id]))
     else
@@ -34,6 +35,9 @@ class GamesController < ApplicationController
   
   def show
     @game = Game.find(params[:id])
+    @game.teams.each do |team|
+      @my_team = team if (current_user.teams+current_user.owned_teams).include?(team)
+    end
   end
   
   private

@@ -19,4 +19,10 @@ class Location < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   has_many :games, class_name: "Game", foreign_key: :location_id
   belongs_to :sport, class_name: "Sport", foreign_key: :sport_id
+  
+  def gmaps_url
+    return "http://maps.google.com/maps?q=#{self.address1} #{address2}," +
+    " #{self.city}, #{self.state}"
+  end
+  
 end

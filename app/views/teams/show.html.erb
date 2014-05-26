@@ -24,19 +24,19 @@
 				<th>Date</th>
 				<th>Time</th>
 				<th>Home Team</th>
+				<th>Result</th>
 				<th>Away Team</th>
 				<th>Location</th>
-				<th>Result</th>
 			</tr>
 			<% team.games.each do |game| %>
 				<tr class='game' id="<%= game.id %>">
-					<td><%= game.league.name %></td>
+					<td class='league' id='<%= game.league.id%>'><%= game.league.name %></td>
 					<td><%= game.date %></td>
 					<td><%= game.time %></td>
 					<td><%= game.home_team.name %></td>
+					<td><%= game.result %></td>					
 					<td><%= game.away_team.name %></td>
 					<td><%= game.location.name %></td>
-					<td><%= game.result %></td>
 				</tr>
 			<% end %>
 		</table>
@@ -45,9 +45,20 @@
 			<p><em>No games scheduled at this time.</em></p>
 		<% end %>
 	</div>
+	<script>
+	$('.game').css('cursor', 'pointer');
+	$('.game').on('click', function() {
+		var gameId = this.id;
+		var leagueId = $('.game#' + gameId + ' .league')[0].id;
+		window.location.href = ("/leagues/" + leagueId + "/games/" + gameId)
+	});
+
+
+	</script>
+	
 	<div class="col-xs-6 col-xs-offset-1">
 <h3>Roster</h3>
-<table class="roster table table-striped table-bordered table-condensed">
+<table class="roster table table-striped table-bordered table-condensed ">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>
@@ -68,9 +79,9 @@
 	</div> 
 </div>
 <script>
-$('.schedule tr.game').on('click', function() {
-	window.location.href = ("/games/" + this.id);
-});
+// $('.schedule tr.game').on('click', function() {
+// 	window.location.href = ("/leagues//games/" + this.id);
+// });
 
 $('.roster').on('click', 'button', function() {
 	var rosterAddId = this.value;

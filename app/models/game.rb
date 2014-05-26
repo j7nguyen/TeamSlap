@@ -25,6 +25,17 @@ class Game < ActiveRecord::Base
   belongs_to :location, foreign_key: :location_id, class_name: "Location"
   has_many :availabilities
   
+  def time_disp
+    hour, minute = self.time.split(':')
+    if hour.to_i > 12
+      hour = hour.to_i - 12
+      return "#{hour}:#{minute} p.m."
+    elsif hour.to_i == 12
+      return "#{hour}:#{minute} p.m."
+    else
+      return "#{hour}:#{minute} a.m."
+    end
+  end
   
   def teams
     return [self.home_team, self.away_team]

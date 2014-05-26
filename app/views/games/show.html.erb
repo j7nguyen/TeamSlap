@@ -1,1 +1,88 @@
-<h3>Game Details</h3>
+<div class='container'>
+	<h1>Game Details</h1>
+	<div class='row'>
+		<div class='col-xs-6'>
+			<table class='table table-bordered table-responsive'>
+				<tr>
+					<th>Home Team</th>
+						<td><%= link_to @game.home_team.name, team_url(@game.home_team) %></td>
+				</tr>
+				<tr>
+				<th>Away Team</th>
+						<td><%= link_to @game.away_team.name, team_url(@game.away_team) %></td>
+				</tr>
+				<tr>
+					<th>League</th>
+					<td><%= @game.league.name %></td>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<td><%= Date.parse(@game.date) %></td>
+				</tr>
+				<tr>
+					<th>Time</th>
+					<td><%= @game.time_disp %></td>
+				</tr>
+			</table>
+		</div>
+		<div class='col-xs-6'>
+			<table class='table table-bordered table-responsive'>
+				<tr>
+					<th>Location Name</th>
+					<td><%= @game.location.name %></td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td><%= @game.location.address1 %>
+							<%= @game.location.address2 %><br>
+							<%= @game.location.city %>, <%= @game.location.state %> 
+							<%= @game.location.zip %>
+					</td>
+				</tr>
+				<tr>
+					<th>Map Link</th>
+					<td><a href="<%= @game.location.gmaps_url %>" target="_blank">Google Maps</a>
+						(opens in new window)
+				</tr>
+				<tr>
+					<th>Location Description</th>
+					<td><%= @game.location.description %></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div class='row'>
+		<% if @my_team %>
+			<h2><%= @my_team.name %> Player Availability for This Game</h2>
+			<table id='team-avails' class='tablesorter table table-responsive table-bordered'>
+				<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Availability Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @my_team.players.each do |player| %>
+				<tr>
+					<td><%= player.first_name %></td>
+					<td><%= player.last_name %></td>
+					<td><%= player.gender %></td>
+					<td><%= player.availability(@game).avail_string %></td>
+				</tr>
+				<% end %>
+			</tbody>
+			</table>
+		<% end %>
+	</div>
+	
+</div>
+
+<script>
+$('thead').css('cursor','pointer');
+$(document).ready(function() {
+	$('#team-avails').tablesorter();
+});
+</script>

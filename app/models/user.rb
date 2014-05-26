@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     return yeses.include?(game_id)
   end
   
+  def availability(game)
+    avail = (Availability.find_by player_id: self.id, game_id: game.id) ||
+    Availability.create({player_id: self.id, game_id: game.id, available_value: 0 })
+  end
+  
   def games
     games = []
     
