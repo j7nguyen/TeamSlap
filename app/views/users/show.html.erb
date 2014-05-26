@@ -23,6 +23,7 @@
 	</ul>
 
 	<h3>My Games</h3>
+
 	<% if !(user_games.empty?) %>
 	<table class="table table-striped table-bordered">
 		<tr>
@@ -53,7 +54,7 @@
 				<% else %>
 						<td class="availability" id='<%= player_avail.id %>'>
 				<% end %>
-				<%= player_avail.avail_string %>
+				<%= player_avail.avail_button %>
 			</td>
 		</tr>
 			<% end %>
@@ -80,7 +81,7 @@
 </div>
 	
 <script>
-$('.editable-availability').css('cursor', 'pointer');
+// $('.editable-availability').css('cursor', 'pointer');
 $('.editable-availability').on('click', function() {
 	var availId = this.id;
 	var userId = <%= @user.id %>;

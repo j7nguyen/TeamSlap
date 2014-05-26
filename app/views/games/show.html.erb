@@ -17,7 +17,8 @@
 				</tr>
 				<tr>
 					<th>Date</th>
-					<td><%= Date.parse(@game.date) %></td>
+					<td><%= @game.month %> <%= Date.parse(@game.date).day %>,
+						<%= Date.parse(@game.date).year %></td>
 				</tr>
 				<tr>
 					<th>Time</th>
@@ -81,6 +82,7 @@
 </div>
 
 <script>
+$('.avail-btn').addClass('disabled')
 $('thead').css('cursor','pointer');
 $(document).ready(function() {
 	$('#team-avails').tablesorter();

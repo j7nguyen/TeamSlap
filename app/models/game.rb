@@ -17,6 +17,10 @@
 #
 
 class Game < ActiveRecord::Base
+  
+  MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December']
+  
   validates :date, :time, :team1_id, :team2_id, :location_id, presence: true
   
   belongs_to :league, foreign_key: :league_id, class_name: "League"
@@ -24,6 +28,11 @@ class Game < ActiveRecord::Base
   belongs_to :away_team, foreign_key: :team2_id, class_name: "Team"
   belongs_to :location, foreign_key: :location_id, class_name: "Location"
   has_many :availabilities
+  
+  def month
+    mo = Date.parse(self.date).month
+    return MONTHS[mo.to_i-1]
+  end
   
   def time_disp
     hour, minute = self.time.split(':')

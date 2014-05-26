@@ -32,7 +32,7 @@ class AvailabilitiesController < ApplicationController
     @avail = Availability.find(params[:id])
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @avail, methods: :avail_string,
+      format.json { render json: @avail, methods: [:avail_button, :avail_string],
       except: [:created_at, :updated_at]  }
     end
   end
