@@ -12,6 +12,14 @@ class AvailabilitiesController < ApplicationController
   end
   
   def update
+    @avail = Availability.find(params[:id])
+    if @avail.update_attributes(avail_params)
+      render json: @avail, methods: :avail_string,
+            except: [:created_at, :updated_at]
+    else
+      flash.now[:errors] = @avail.errors.full_messages
+      render :edit
+    end
   end
   
   def destroy
@@ -21,6 +29,12 @@ class AvailabilitiesController < ApplicationController
   end
   
   def show
+    @avail = Availability.find(params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @avail, methods: :avail_string,
+      except: [:created_at, :updated_at]  }
+    end
   end
 
   private

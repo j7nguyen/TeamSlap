@@ -15,25 +15,51 @@
 </div>
 
 <div class="row">
+	<div class="col-xs-9 col-xs-offset-1">
+		<h3>Upcoming Games</h3>
+		<% if team.games %>
+		<table class="schedule table table-striped table-bordered table-hover">
+			<tr>
+				<th>League</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Home Team</th>
+				<th>Away Team</th>
+				<th>Location</th>
+				<th>Result</th>
+			</tr>
+			<% team.games.each do |game| %>
+				<tr class='game' id="<%= game.id %>">
+					<td><%= game.league.name %></td>
+					<td><%= game.date %></td>
+					<td><%= game.time %></td>
+					<td><%= game.home_team.name %></td>
+					<td><%= game.away_team.name %></td>
+					<td><%= game.location.name %></td>
+					<td><%= game.result %></td>
+				</tr>
+			<% end %>
+		</table>
+
+		<% else %>
+			<p><em>No games scheduled at this time.</em></p>
+		<% end %>
+	</div>
 	<div class="col-xs-6 col-xs-offset-1">
 <h3>Roster</h3>
-<table class="roster table table-striped table-bordered">
+<table class="roster table table-striped table-bordered table-condensed">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Gender</th>
-
 	</tr>
-
-
 	<% team.roster_adds.each do |roster_add| %>
-	
-	<tr>
+	<tr class='roster-row' id='<%=roster_add.user.id%>'>
 		<td><%= roster_add.user.first_name %></td>
 		<td><%= roster_add.user.last_name %></td>
 		<td><%= roster_add.user.gender %></td>
 		<% if current_user.id == team.manager_id%>
-		<td><button class='delete-player btn btn-danger' value="<%= roster_add.id %>">
+		<td><button class='delete-player btn btn-danger btn-xs' value="<%= roster_add.id %>">
 			Delete Player</button></td>
 		<% end %>
 	</tr>
@@ -42,10 +68,17 @@
 	</div> 
 </div>
 <script>
+$('.schedule tr.game').on('click', function() {
+	window.location.href = ("/games/" + this.id);
+});
+
 $('.roster').on('click', 'button', function() {
 	var rosterAddId = this.value;
+	var userId = $(this).parent().parent()[0].id
+
 	$(this).parent().parent()[0].remove();
 	playerRemove(rosterAddId, <%= team.id %>);
+	playerToDropdown(userId);
 });
 </script>
 
@@ -53,26 +86,24 @@ $('.roster').on('click', 'button', function() {
 <div class="row">
 	<div class="col-xs-6 col-xs-offset-1">
 		
-	<p>Add a Player to the Roster:</p>
-	
-
-	
-<form id="add_player" >
+<form id="add_player" role='form' >
+	<div class='form-group'>
 	<%= auth_token_input %>
-	<label>Other Registered Players
-		<select name="roster[player_id]" id="available-players">
+	<h3>Add Other Registered Players</h3>
+		<select class='form-control' name="roster[player_id]" id="available-players">
 			<% @non_roster_players.each do |player| %>
 				<option id='option-<%=player.id%>' value="<%=player.id %>">
-					<%= player.name %>
+					<%= player.name %>, <%= player.gender %>
 				</option>
 			<% end %>
 		</select>
-	</label>
+
 
 	<input type="hidden" name="roster[team_id]" 
 		value="<%= params[:id] %>">
-	<input type="submit" value="Add Player">
-</form>	
+	<input type="submit" value="Add Player" class='btn btn-warning'>
+</form>
+</div>	
 </div>
 </div>
 <% end %>

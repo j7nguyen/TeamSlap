@@ -22,7 +22,19 @@ class Availability < ActiveRecord::Base
   def ensure_valid_availability
     self.available_value >= 0 && self.available_value <=3
   end
-  
+    
+  def avail_string
+    case self.available_value
+    when 0
+      return "No Response"
+    when 1
+      return "Available"
+    when 2
+      return "Unavailable"
+    when 3
+      return "Maybe"
+    end
+  end
  
   
 end

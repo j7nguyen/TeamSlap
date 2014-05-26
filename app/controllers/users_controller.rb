@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_avails = @user.availabilities
 
     respond_to do |format|
       format.html { render :show }
