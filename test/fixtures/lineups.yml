@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: lineups
+#
+#  id         :integer          not null, primary key
+#  team_id    :integer          not null
+#  game_id    :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 1
+  game_id: 1
+
+two:
+  team_id: 1
+  game_id: 1

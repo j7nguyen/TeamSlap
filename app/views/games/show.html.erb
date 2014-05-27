@@ -55,7 +55,14 @@
 	
 	<div class='row'>
 		<% if @my_team %>
-			<h2><%= @my_team.name %> Player Availability for This Game</h2>
+			<h2><%= @my_team.name %> Player Availability for This Game 
+				<% if @my_team.lineup(@game) %>
+					<% lineup = @my_team.lineup(@game).first %>
+					<a href="<%= team_lineup_url(@my_team, lineup) %>" id='editLineup' class="btn btn-primary">Edit Your Lineup for This Game</a></h2>
+				<% else %>	
+					<button id='newLineup' class="btn btn-primary">Create a Lineup for This Game</a></h2>
+				<% end %>
+				
 			<table id='team-avails' class='tablesorter table table-responsive table-bordered'>
 				<thead>
 				<tr>
@@ -86,5 +93,11 @@ $('.avail-btn').addClass('disabled')
 $('thead').css('cursor','pointer');
 $(document).ready(function() {
 	$('#team-avails').tablesorter();
+});
+
+$('#newLineup').on('click', function() {
+	var gameId = <%= @game.id %>;
+	var teamId = <%= @my_team.id %>;
+	newLineup(gameId, teamId);
 });
 </script>

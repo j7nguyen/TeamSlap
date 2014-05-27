@@ -16,5 +16,7 @@
 //= require jquery.tablesorter
 //= require turbolinks
 //= require bootstrap
+//= require bootstrap/tooltip
+//= require bootstrap/popover
 //= require_tree .
 

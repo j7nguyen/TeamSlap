@@ -82,7 +82,8 @@
 	
 <script>
 // $('.editable-availability').css('cursor', 'pointer');
-$('.editable-availability').on('click', function() {
+$('.editable-availability').on('click', function(event) {
+	event.preventDefault();
 	var availId = this.id;
 	var userId = <%= @user.id %>;
 	chooseAvail(availId, userId);

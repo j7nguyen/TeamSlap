@@ -1,0 +1,45 @@
+<h2><%= @lineup.team.name %> Lineup for <%= Date.parse(@lineup.game.date) %></h2>
+<div class='container'>
+	<div class='row'>
+		
+		<div class='col col-xs-5'>
+			<h3>Positions</h3>
+			<div id="positions">
+				<% if @lineup.positions %>
+					<% @lineup.positions.each do |position| %>
+					<div class='lineup-position' id='<%= position.id %>'>
+						<%= position.name %>
+						<%= position.player || '' %>
+					</div>
+					<% end %>
+				<% end %>
+			</div>
+			<div>
+				To add a new position, enter its name below and submit.
+				<form id='addPosition'><input type='text' id='positionName' role='form'>
+					<input type='submit' class='btn btn-primary form-control' value='Add Position'>
+				</form>
+			</div>
+		</div>
+		
+		<div class='col col-xs-5' id='available-players'>
+			<h3>Available Players</h3>
+			<ul>
+				<% @lineup.available_players.each do |player| %>
+				<li><%= player.name %></li>
+				<% end %>
+			</ul>
+		</div>
+		
+	</div>
+</div>
+
+<script>
+$('#addPosition').on('submit', function(event) {
+	event.preventDefault();
+	var name = $('#positionName').val();
+	var teamId = <%= @lineup.team.id %>;
+	var lineupId = <%= @lineup.id %>;
+	newPosition(name, teamId, lineupId);
+})
+</script>

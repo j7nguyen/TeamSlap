@@ -5,7 +5,7 @@
 #  id              :integer          not null, primary key
 #  player_id       :integer          not null
 #  game_id         :integer          not null
-#  available_value :integer          not null
+#  available_value :integer          default(0), not null
 #  created_at      :datetime
 #  updated_at      :datetime
 #

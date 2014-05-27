@@ -30,9 +30,8 @@ class User < ActiveRecord::Base
   has_many :availabilities, class_name: "Availability", foreign_key: :player_id
   
   def is_available?(game_id)
-    yeses = self.availabilities.select{ |avail| avail.available_value == 1 }
-    yes_games = yeses.map{|yes| yes.game_id}
-    return yeses.include?(game_id)
+    avail = Availability.where(player_id: self.id, game_id: game_id).first
+    return (avail.available_value == 1)
   end
   
   def availability(game)

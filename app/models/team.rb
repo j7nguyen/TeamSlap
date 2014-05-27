@@ -19,9 +19,14 @@ class Team < ActiveRecord::Base
   belongs_to :manager, foreign_key: :manager_id, class_name: "User"
   has_many :home_games, foreign_key: :team1_id, class_name: "Game"
   has_many :away_games, foreign_key: :team2_id, class_name: "Game"
+  has_many :lineups
+  has_many :lineup_positions, through: :lineups, source: :lineup_positions
+
+  def lineup(game)
+    return Lineup.where(game_id: game.id, team_id: self.id)
+  end
   
   def games
-    # return self.home_games.concat(self.away_games).sort_by { |game| Date.parse(game.date) }
     return (self.home_games + self.away_games)
   end
 end
