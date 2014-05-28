@@ -103,7 +103,7 @@
 					<form id="add_player" role='form' >
 						<div class='form-group'>
 							<%= auth_token_input %>
-							<h3>Add Other Registered Players</h3>
+							<h3>Add Other Registered <%= team.sport.name %> Players</h3>
 							<select class='form-control' name="roster[player_id]" id="available-players">
 								<% @non_roster_players.each do |player| %>
 								<option id='option-<%=player.id%>' value="<%=player.id %>">

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_many :teams, through: :roster_adds, source: :team
   has_many :owned_teams, class_name: "Team", foreign_key: :manager_id
   has_many :availabilities, class_name: "Availability", foreign_key: :player_id
+  has_many :owned_leagues, class_name: "League", foreign_key: :league_manager_id
+  has_many :leagues, through: :teams, source: :leagues
   
   def is_available?(game_id)
     avail = Availability.where(player_id: self.id, game_id: game_id).first

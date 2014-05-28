@@ -19,24 +19,49 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">TeamSlap</a>
+      <a class="navbar-brand" href="<%= user_url(current_user)%>">TeamSlap</a>
     </div>
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Teams<b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+						<% if current_user.owned_teams %>
+						<li><em>As Manager</em></li>
+							<% current_user.owned_teams.each do |team| %>
+							<li><%= link_to team.name, team_url(team) %></li>
+							<% end %>
+							<li class='divider'></li>								
+						<% end %>
+						<% if current_user.teams %>
+						<li><em>As Player</em></li>
+							<% current_user.teams.each do |team| %>
+							<li><%= link_to team.name, team_url(team) %></li>
+							<% end %>
+						<% end %>
           </ul>
         </li>
+				
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Leagues<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+						<% if current_user.owned_leagues %>
+						<li><em>As Manager</em></li>
+							<% current_user.owned_leagues.each do |league| %>
+							<li><%= link_to league.name, league_url(league) %></li>
+							<% end %>
+							<li class='divider'></li>								
+						<% end %>
+						<% if current_user.leagues %>
+						<li><em>As Player</em></li>
+							<% current_user.leagues.each do |league| %>
+							<li><%= link_to league.name, league_url(league) %></li>
+							<% end %>
+						<% end %>
+          </ul>
+        </li>
+				
+				<li><%= link_to "Other Leagues", leagues_url %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -55,22 +80,7 @@
 </nav>
 <% end %>
 
-<div class="row">
-	<div class="col-xs-4">
-	<% if signed_in? %>
-	  <p>Logged in as <%= link_to current_user.email, user_url(current_user)%></p>
-	  <%= button_to "Log Out", session_url, method: :delete %>
-	<% else %>
-	  <%= link_to "Sign In", new_session_url %>
-	  <%= link_to "Sign Up", new_user_url %>
-	<% end %>
-	</div>
 
-	<div class="col-xs-4">
-		<a class="btn btn-info" href='<%= teams_url %>'>See All Teams</a>
-		<a class="btn btn-warning" href='<%= leagues_url %>'>See All Leagues</a>
-	</div>
-</div>
 <% if flash[:errors] %>
   <ul>
     <% flash[:errors].each do |msg| %>
