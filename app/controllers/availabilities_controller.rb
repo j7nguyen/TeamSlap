@@ -7,10 +7,7 @@ class AvailabilitiesController < ApplicationController
       format.json { render :json => @avail }
     end
   end
-  
-  def edit
-  end
-  
+    
   def update
     @avail = Availability.find(params[:id])
     if @avail.update_attributes(avail_params)
@@ -18,7 +15,8 @@ class AvailabilitiesController < ApplicationController
             except: [:created_at, :updated_at]
     else
       flash.now[:errors] = @avail.errors.full_messages
-      render :edit
+      render json: @avail, methods: [:avail_string, :avail_button],
+            except: [:created_at, :updated_at]
     end
   end
   

@@ -35,9 +35,7 @@ class GamesController < ApplicationController
   
   def show
     @game = Game.find(params[:id])
-    @game.teams.each do |team|
-      @my_team = team if (current_user.teams+current_user.owned_teams).include?(team)
-    end
+    @my_teams = current_user.teams + current_user.owned_teams    
   end
   
   private

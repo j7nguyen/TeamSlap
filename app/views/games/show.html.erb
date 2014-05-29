@@ -54,14 +54,18 @@
 	</div>
 	
 	<div class='row'>
-		<% if @my_team %>
-			<h2><%= @my_team.name %> Player Availability for This Game 
-				<% if @my_team.lineup(@game).first %>
-					<% lineup = @my_team.lineup(@game).first %>
-					<a href="<%= team_lineup_url(@my_team, lineup) %>" id='editLineup' class="btn btn-primary">Edit Your Lineup for This Game</a>
-				<% else %>	
-					<button id='newLineup' class="btn btn-primary">Create a Lineup for This Game</a>
+		<% @game.teams.each do |team| %>
+			<% if @my_teams.include?(team) %>
+			<h2><%= team.name %> Player Availability for This Game 
+				<% if team.manager_id == current_user.id %> 
+					<% if team.lineup(@game).first %>
+						<% lineup = team.lineup(@game).first %>
+						<a href="<%= team_lineup_url(team, lineup) %>" id='editLineup' class="btn btn-primary">Edit Your Lineup for This Game</a>
+					<% else %>	
+						<button id='<%= team.id %>' class="newLineup btn btn-primary">Create a Lineup for This Game</a>
+					<% end %>
 				<% end %>
+				
 			</h2>
 			<table id='team-avails' class='tablesorter table table-responsive table-bordered'>
 				<thead>
@@ -73,7 +77,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @my_team.players.each do |player| %>
+				<% team.players.each do |player| %>
 				<tr>
 					<td><%= player.first_name %></td>
 					<td><%= player.last_name %></td>
@@ -83,6 +87,7 @@
 				<% end %>
 			</tbody>
 			</table>
+			<% end %>
 		<% end %>
 	</div>
 	
@@ -95,9 +100,9 @@ $(document).ready(function() {
 	$('#team-avails').tablesorter();
 });
 
-$('#newLineup').on('click', function() {
+$('.newLineup').on('click', function() {
 	var gameId = <%= @game.id %>;
-	var teamId = <%= @my_team.id %>;
+	var teamId = this.id;
 	newLineup(gameId, teamId);
 });
 </script>

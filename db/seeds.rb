@@ -34,8 +34,41 @@ users = User.create([
   { email: 'bigup@yahoo.com', first_name: 'Robert', last_name: 'Julius', 
     gender: 'Male', password: 'foobar'},
   { email: 'dogluvr@earthlink.net', first_name: 'Maury', last_name: 'Argento', 
-    gender: 'Female', password: 'foobar'}
-    
+    gender: 'Female', password: 'foobar'},
+  { email: 'test1@gmail.com', first_name: 'Big', last_name: 'Mike', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test2@gmail.com', first_name: 'Little', last_name: 'John', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test3@gmail.com', first_name: 'Chris', last_name: 'Johansson', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test4@gmail.com', first_name: 'David', last_name: 'Gutierrez', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test5@gmail.com', first_name: 'Big', last_name: 'Mike', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test6@gmail.com', first_name: 'Cristiano', last_name: 'Ronaldo', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test7@gmail.com', first_name: 'Lionel', last_name: 'Messi', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test8@gmail.com', first_name: 'Jose', last_name: 'Rodriguez', 
+    gender: 'Male', password: 'foobar'},
+  { email: 'test9@gmail.com', first_name: 'Michelle', last_name: 'Wikins',
+  gender: 'Female', password: 'foobar' },
+  { email: 'test9@gmail.com', first_name: 'Jessica', last_name: 'Johns',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test10@gmail.com', first_name: 'Charlene', last_name: 'Bronson',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test11@gmail.com', first_name: 'Madeline', last_name: 'Archer',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test12@gmail.com', first_name: 'Lana', last_name: 'Kane',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test13@gmail.com', first_name: 'Sherry', last_name: 'Chan',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test14@gmail.com', first_name: 'Edith', last_name: 'Pham',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test15@gmail.com', first_name: 'Sydney', last_name: 'Leroux',
+    gender: 'Female', password: 'foobar' },
+  { email: 'test16@gmail.com', first_name: 'Abby', last_name: 'Wambach',
+    gender: 'Female', password: 'foobar' },
   ])
   
 sports = Sport.create([
@@ -89,6 +122,7 @@ teams = Team.create([
   { name: "Pistoffs", manager_id: 7, sport_id: 2 },
   { name: "Rawks", manager_id: 8, sport_id: 2 },
   { name: "Captors", manager_id: 9, sport_id: 2 },
+  { name: "Blazers", manager_id: 20, sport_id: 2 }
 ])
 
 roster_adds = RosterAdd.create([
@@ -98,11 +132,28 @@ roster_adds = RosterAdd.create([
   { team_id: 1, player_id: 7 }, { team_id: 1, player_id: 8 },
   { team_id: 1, player_id: 9 }, { team_id: 1, player_id: 10 },
   { team_id: 1, player_id: 11 }, { team_id: 1, player_id: 12 },
-  { team_id: 9, player_id: 5 }, { team_id: 9, player_id: 6 },
-  { team_id: 9, player_id: 7 }, { team_id: 9, player_id: 8 },
-  { team_id: 9, player_id: 1 }, { team_id: 9, player_id: 9 },
-  { team_id: 9, player_id: 10 }, { team_id: 9, player_id: 11 },
 
+
+  { team_id: 2, player_id: 15}, { team_id: 2, player_id: 21 },
+  { team_id: 2, player_id: 16}, { team_id: 2, player_id: 22 },
+  { team_id: 2, player_id: 17}, { team_id: 2, player_id: 23 },
+  { team_id: 2, player_id: 18}, { team_id: 2, player_id: 24 },
+  { team_id: 2, player_id: 19}, { team_id: 2, player_id: 25 },
+  { team_id: 2, player_id: 20 }, { team_id:2, player_id:26 },
+
+  { team_id: 3, player_id: 15}, { team_id: 3, player_id: 21 },
+  { team_id: 3, player_id: 16}, { team_id: 3, player_id: 22 },
+  { team_id: 3, player_id: 17}, { team_id: 3, player_id: 23 },
+  { team_id: 3, player_id: 18}, { team_id: 3, player_id: 24 },
+  { team_id: 3, player_id: 19}, { team_id: 3, player_id: 25 },
+  { team_id: 3, player_id: 20 }, { team_id:3, player_id:26 },
+  
+  { team_id: 4, player_id: 11}, { team_id: 4, player_id: 26 },
+  { team_id: 4, player_id: 12}, { team_id: 4, player_id: 25 },
+  { team_id: 4, player_id: 13}, { team_id: 4, player_id: 27 },
+  { team_id: 4, player_id: 14}, { team_id: 4, player_id: 28 },
+  { team_id: 4, player_id: 15}, { team_id: 4, player_id: 29 },
+  { team_id: 4, player_id: 16 }, { team_id:4, player_id: 30 }
 ])
 
 team_adds = TeamAdd.create([
@@ -115,3 +166,24 @@ team_adds = TeamAdd.create([
   { team_id: 10, league_id: 4}, { team_id: 13, league_id: 4},
   { team_id: 11, league_id: 4}, { team_id: 14, league_id: 4}
 ])
+
+games = Game.create([
+  { league_id: 1, team1_id: 1, team2_id: 2, date: '2014-06-01', time: '8:00', location_id: 1},
+  { league_id: 1, team1_id: 3, team2_id: 4, date: '2014-06-01', time: '10:00', location_id: 1},
+  { league_id: 1, team1_id: 5, team2_id: 6, date: '2014-06-01', time: '12:00', location_id: 1},
+  { league_id: 1, team1_id: 7, team2_id: 8, date: '2014-06-01', time: '14:00', location_id: 1},
+  { league_id: 1, team1_id: 1, team2_id: 3, date: '2014-06-08', time: '8:00', location_id: 2},
+  { league_id: 1, team1_id: 2, team2_id: 4, date: '2014-06-08', time: '10:00', location_id: 2},
+  { league_id: 1, team1_id: 5, team2_id: 7, date: '2014-06-08', time: '13:00', location_id: 2},
+  { league_id: 1, team1_id: 6, team2_id: 8, date: '2014-06-08', time: '15:00', location_id: 2},
+  { league_id: 1, team1_id: 1, team2_id: 6, date: '2014-06-15', time: '8:00', location_id: 3},
+  { league_id: 1, team1_id: 3, team2_id: 8, date: '2014-06-15', time: '10:00', location_id: 3},
+  { league_id: 1, team1_id: 5, team2_id: 2, date: '2014-06-15', time: '12:00', location_id: 4},
+  { league_id: 1, team1_id: 7, team2_id: 4, date: '2014-06-15', time: '14:00', location_id: 4},
+  { league_id: 1, team1_id: 1, team2_id: 5, date: '2014-06-22', time: '8:00', location_id: 5},
+  { league_id: 1, team1_id: 2, team2_id: 6, date: '2014-06-22', time: '10:00', location_id: 5},
+  { league_id: 1, team1_id: 5, team2_id: 3, date: '2014-06-22', time: '13:00', location_id: 2},
+  { league_id: 1, team1_id: 6, team2_id: 4, date: '2014-06-22', time: '15:00', location_id: 3}
+])
+
+Availability.generate_random_avails

@@ -4,20 +4,24 @@ var chooseAvail = function(availId, userId) {
 		type: 'GET',
 		success: function(response) {
 			// $('.editable-availability#' + availId).html(
-			$('.modal-body').html(
-				"<form class='edit-availability' role='form'>" +
-				"<select class='form-control' name='avail[available_value]' id='player-availability'>" +
+			$('#'+ availId).html(
+				"<div class='avail-selection' id='" + availId + "'><form class='edit-availability' role='form'>" +
+				"<select class='form-control player-availability' name='avail[available_value]' id='" + availId + "'>" +
 				"<option id='0' value=0>No Response</option>" +
 				"<option id='1' value=1>Available</option>" +
 				"<option id='2' value=2>Unavailable</option>" +
 				"<option id='3' value=3>Maybe</option>" +
-				"</select><input type='submit'  class='btn btn-xs btn-primary' value='Update Availability'></form>"
+				"</select><input type='submit'  class='btn btn-xs btn-primary' value='Update Availability'></form></div>"
 			);
-			$('#player-availability option#'+response.available_value).attr('selected','selected');
+
+			var availValue = response.available_value;
+
+			$('.player-availability').find('#' + availValue).attr('selected','selected');
 			
 			$('.edit-availability').on('submit', function(event) {
 				event.preventDefault();
-				var availValue = $('#player-availability').val()
+				var availValue = $('.player-availability ').val();
+
 				updateAvail(userId, availId, availValue);
 			});
 		}
@@ -30,9 +34,13 @@ var updateAvail = function(userId, availId, availValue) {
 		type: 'PATCH',
 		data: {avail: {player_id: userId, available_value: availValue}},
 		success: function(response) {
-			$('.editable-availability#' + availId).html(response.avail_button);
-			}
+			$('.editable-availability#' + response.id).html(response.avail_button);
 
+			$('.avail-btn').on('click', function() {
+				var availId = $(this).parent()[0].id;
+				chooseAvail(availId, userId);
+			});
+			}
 	});
 }
 

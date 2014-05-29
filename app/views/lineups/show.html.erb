@@ -22,7 +22,7 @@
 			</div>
 			<div>
 				To add a new position, enter its name below and submit.
-				<form id='addPosition'><input type='text' id='positionName' role='form'>
+				<form id='addPosition' class='position-form' role='form'><input type='text' id='positionName' class='form-control'>
 					<input type='submit' class='btn btn-primary form-control' value='Add Position'>
 				</form>
 			</div>
@@ -64,9 +64,9 @@ $(function() {
 		});	
 });
 
-$('.lineup-assignment').on('click', function() {
+$('.lineup-assignment').on('dblclick', function() {
 	var lineupId = <%= @lineup.id %>
 	unassign(this.id, lineupId);
-})
+});
   
 </script>

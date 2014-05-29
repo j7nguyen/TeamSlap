@@ -34,6 +34,10 @@ class Game < ActiveRecord::Base
     return MONTHS[mo.to_i-1]
   end
   
+  def date_disp
+    return "#{self.month} #{Date.parse(self.date).day}, #{Date.parse(self.date).year}"
+  end
+  
   def time_disp
     hour, minute = self.time.split(':')
     if hour.to_i > 12

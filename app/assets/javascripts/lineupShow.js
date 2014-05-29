@@ -10,7 +10,7 @@ var newPosition = function(name, teamId, lineupId) {
 			$('#positions').append("<div class='row lineup-position' id='" +
 			response.id +"'><div class='lineup-description col col-xs-4'>" + response.name + 
 			"</div><div class='lineup-assignment col col-xs-8 droppable ui-widget-header ui-droppable' id='" +
-			response.id + "'><em>To be assigned</em></div>" +
+			response.id + "'></div>" +
 			"</div>");
 			
 			$(function() {
@@ -24,9 +24,13 @@ var newPosition = function(name, teamId, lineupId) {
 						var positionId = event.target.id;
 						assignPosition(positionId, playerId, lineupId);
 					  },
-					});	
+					});
+					$('.lineup-assignment').on('dblclick', function() {
+						var lineupId = lineupId;
+						unassign(this.id, lineupId);
+					});
+						
 			});
-			
 			$('#positionName').val('');
 		}
 	});
