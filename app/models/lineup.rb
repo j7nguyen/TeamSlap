@@ -15,6 +15,7 @@ class Lineup < ActiveRecord::Base
   belongs_to :team
   belongs_to :game
   has_many :positions, foreign_key: :lineup_id, class_name: "LineupPosition"
+  has_many :assigned_players, through: :positions, source: :player
   
   def available_players
     self.team.players.select do |player|

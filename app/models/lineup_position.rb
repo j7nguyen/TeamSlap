@@ -17,4 +17,8 @@ class LineupPosition < ActiveRecord::Base
   belongs_to :player, foreign_key: :player_id, class_name: "User"
   belongs_to :lineup
   
+  def player_info
+    return "#{player.name}, #{player.gender}"
+  end
+  
 end

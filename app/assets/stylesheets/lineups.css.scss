@@ -1,3 +1,35 @@
 // Place all the styles related to the lineups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.lineup-position {
+	border-radius: 15px;
+	height: 40px;
+	margin: 5px;
+	border: 2px solid;
+}
+
+.lineup-description {
+	color: white;
+	height: 100%;
+	border-right: solid gray;
+	background-color: #757575;
+}
+
+.lineup-assignment { height: 100%;	background-color: #FFFFFF; }
+
+.available-player {
+	margin: 5px;
+	width: 225px;
+	height: 40px;
+	border-radius: 5px;
+	border: 2px solid;
+	color: black;
+	padding: 2px;
+	text-align: center;
+}
+
+
+
+.ui-widget-header p, .ui-widget-content p { margin: 0; }
+

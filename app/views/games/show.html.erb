@@ -56,13 +56,13 @@
 	<div class='row'>
 		<% if @my_team %>
 			<h2><%= @my_team.name %> Player Availability for This Game 
-				<% if @my_team.lineup(@game) %>
+				<% if @my_team.lineup(@game).first %>
 					<% lineup = @my_team.lineup(@game).first %>
-					<a href="<%= team_lineup_url(@my_team, lineup) %>" id='editLineup' class="btn btn-primary">Edit Your Lineup for This Game</a></h2>
+					<a href="<%= team_lineup_url(@my_team, lineup) %>" id='editLineup' class="btn btn-primary">Edit Your Lineup for This Game</a>
 				<% else %>	
-					<button id='newLineup' class="btn btn-primary">Create a Lineup for This Game</a></h2>
+					<button id='newLineup' class="btn btn-primary">Create a Lineup for This Game</a>
 				<% end %>
-				
+			</h2>
 			<table id='team-avails' class='tablesorter table table-responsive table-bordered'>
 				<thead>
 				<tr>

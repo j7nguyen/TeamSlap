@@ -23,6 +23,19 @@ class Availability < ActiveRecord::Base
     self.available_value >= 0 && self.available_value <=3
   end
   
+  ##For seeding purposes only.
+  def self.generate_random_avails
+    Game.all.each do |game|
+      game.teams.each do |team|
+        team.players.each do |player|
+          avail = player.availability(game)
+          avail.available_value = [1,1,1,1,1,1,2,2,3].sample if avail.available_value == 0
+          avail.save
+        end
+      end
+    end
+  end
+  
   def avail_string
     case self.available_value
     when 0

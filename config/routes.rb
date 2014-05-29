@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :roster_adds, only: [:create, :destroy, :new]
     resources :lineups do
-      resources :lineup_positions, only: [:create, :destroy, :update]
+      resources :lineup_positions, only: [:create, :destroy, :update, :show]
     end
   end
   

@@ -7,9 +7,15 @@
 			<div id="positions">
 				<% if @lineup.positions %>
 					<% @lineup.positions.each do |position| %>
-					<div class='lineup-position' id='<%= position.id %>'>
+					<div class='row lineup-position' id='<%= position.id %>'>
+						<div class='lineup-description col col-xs-4'>
 						<%= position.name %>
-						<%= position.player || '' %>
+					</div>
+					<div class='lineup-assignment col col-xs-8 droppable ui-widget-header' id='<%= position.id %>'>
+						<% if position.player %>
+							<%= position.player.name + ", " + position.player.gender %>
+						<% end %>
+					</div>
 					</div>
 					<% end %>
 				<% end %>
@@ -24,11 +30,13 @@
 		
 		<div class='col col-xs-5' id='available-players'>
 			<h3>Available Players</h3>
-			<ul>
+
 				<% @lineup.available_players.each do |player| %>
-				<li><%= player.name %></li>
+				<% next if @lineup.assigned_players.include?(player) %>
+				<div class='draggable ui-widget-content available-player' id='<%= player.id %>'>
+					<%= player.name %>, <%= player.gender %></div>
 				<% end %>
-			</ul>
+
 		</div>
 		
 	</div>
@@ -41,5 +49,24 @@ $('#addPosition').on('submit', function(event) {
 	var teamId = <%= @lineup.team.id %>;
 	var lineupId = <%= @lineup.id %>;
 	newPosition(name, teamId, lineupId);
+});
+$(function() {
+		$( ".draggable" ).draggable({containment: '.container', revert: 'invalid',
+			cursor: 'move'});
+		$( ".droppable" ).droppable({
+			drop: function( event, ui ) {
+		 	$( this ).addClass( "assigned");
+			var playerId = ui.draggable[0].id;
+			var positionId = event.target.id;
+			var lineupId = <%= @lineup.id %>
+			assignPosition(positionId, playerId, lineupId);
+		  },
+		});	
+});
+
+$('.lineup-assignment').on('click', function() {
+	var lineupId = <%= @lineup.id %>
+	unassign(this.id, lineupId);
 })
+  
 </script>
