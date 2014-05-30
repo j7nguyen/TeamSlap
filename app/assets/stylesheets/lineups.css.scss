@@ -2,11 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.top-row {
+	border-top: 3px solid #B6B6B6;
+}
+
 .lineup-position {
 	border-radius: 15px;
 	height: 35px;
 	margin: 1px;
 
+}
+
+#positions {
+		border-left: solid 1px #B6B6B6;
 }
 
 .lineup-description {

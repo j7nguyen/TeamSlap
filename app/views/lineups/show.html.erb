@@ -1,22 +1,24 @@
-<div class='container title-div'>
-<h2><%= @lineup.team.name %> Lineup for <%= @lineup.game.date_disp %></h2>
-</div>
-
 <div class='container lineup-maker'>
-	<div class='row'>
+<h2><%= @lineup.team.name %> Lineup for <%= @lineup.game.date_disp %></h2>
+	<div class='row top-row'>
 
 			<div class='col col-xs-3' id='instructions'>
 				<h3>About This Feature</h3>
 				<p>Use the position maker to create custom positions for this lineup.</p>
 				
-				<p>You can drag your available players to a lineup position to assign them.
-					To undo an assignment, double-click on the player's name and they will
-					appear back in your list of available players.</p>
+				<p>You can:</p>
+				<ul>
+					<li>Create new positions by entering and submitting a position name</li>
+					<li>Drag available players to lineup positions for assignment</li>
+					<li>Double-click an assigned player's name to un-assign the position</li>
+					<li>Rearrange the list of positions</li>
+				</ul>
+
 			</div>
 			
-		<div class='col col-xs-5'>
+		<div class='col col-xs-5' id="positions">
 			<h3>Positions</h3>
-			<div id="positions">
+			<div >
 				<ol id="sortable-positions">
 				<% if @lineup.positions %>
 					<% @lineup.positions.sort_by{|pos| pos.id}.each do |position| %>

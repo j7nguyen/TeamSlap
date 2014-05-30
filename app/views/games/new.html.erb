@@ -3,7 +3,7 @@
 	<p>You can choose matchups from teams in your league. Please choose from an
 		existing location or enter new location information accurately.</p>
 	
-		<form action="<%= league_games_url(@league) %>" method="post" role='form'>
+		<form action="<%= league_games_url(@league) %>" class= 'form' method="post" role='form'>
 			<%= auth_token_input %>
 			<div class='form-group'>
 				<h3>Date/Time</h3>
@@ -34,14 +34,14 @@
 			</div>
 			<div class='form-group'>
 				<h3>Location</h3>
-				<select name="game[location_id]">
+				<select class='form-control' name="game[location_id]">
 					<% @league.sport.locations.each do |location| %>
 					<option value="<%= location.id %>"> <%= location.name %></option>
 						<% end %>
 					</select>
 				</div>
 				<input type="hidden" name="game[league_id]" value="<%= @league.id %>">
-				<input type="submit" class="btn btn-primary" value="Add Game">
+				<input type="submit" class="form-control btn btn-primary" value="Add Game">
 			</form>
 		</div>
 		

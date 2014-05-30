@@ -1,8 +1,13 @@
 <div class='container'>
-	<h1>Game Details</h1>
 	<div class='row'>
-		<div class='col-xs-6'>
-			<table class='table table-bordered table-responsive'>
+			<div class='col-xs-12'>
+			<h2>Game Details</h2>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-xs-6 col-md-4'>
+			<h4>Schedule Detals</h4>
+			<table class='table table-bordered table-responsive '>
 				<tr>
 					<th>Home Team</th>
 						<td><%= link_to @game.home_team.name, team_url(@game.home_team) %></td>
@@ -26,34 +31,33 @@
 				</tr>
 			</table>
 		</div>
-		<div class='col-xs-6'>
+		<div class='col-xs-6 col-md-4'>
+			<h4>Location Information</h4>
 			<table class='table table-bordered table-responsive'>
 				<tr>
-					<th>Location Name</th>
+					<th>Name</th>
 					<td><%= @game.location.name %></td>
 				</tr>
 				<tr>
 					<th>Address</th>
-					<td><%= @game.location.address1 %>
+					<td><a href="<%= @game.location.gmaps_url %>" target="_blank"><%= @game.location.address1 %>
 							<%= @game.location.address2 %><br>
 							<%= @game.location.city %>, <%= @game.location.state %> 
-							<%= @game.location.zip %>
+							<%= @game.location.zip %> 
+						</a><br><br> (Map opens in new window)
 					</td>
 				</tr>
 				<tr>
-					<th>Map Link</th>
-					<td><a href="<%= @game.location.gmaps_url %>" target="_blank">Google Maps</a>
-						(opens in new window)
-				</tr>
-				<tr>
-					<th>Location Description</th>
+					<th>Description</th>
 					<td><%= @game.location.description %></td>
 				</tr>
 			</table>
 		</div>
 	</div>
+
 	
 	<div class='row'>
+		<div class='col-xs-12'>
 		<% @game.teams.each do |team| %>
 			<% if @my_teams.include?(team) %>
 			<h2><%= team.name %> Player Availability for This Game 
@@ -67,6 +71,7 @@
 				<% end %>
 				
 			</h2>
+			<div class='games-table'>
 			<table id='team-avails' class='tablesorter table-striped table table-responsive table-bordered'>
 				<thead>
 				<tr>
@@ -89,6 +94,7 @@
 			</table>
 			<% end %>
 		<% end %>
+	</div>
 	</div>
 	
 </div>

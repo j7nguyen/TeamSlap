@@ -11,6 +11,28 @@
 	border-radius: 5px;
 	padding: 5px;
 }*/
+/*.managed-team-btn {
+	background-color: black;
+}
+
+*/
+
+.header-row {
+	text-align: center;
+}
+
+.user-info {
+	vertical-align: middle;
+}
+
+.user-teams {
+	border-left: 2px solid gray;
+	padding-bottom: 10px;;
+}
+
+.user-games h3 {
+	text-align: center;
+}
 
 .player-availability {
 	width: 85%;
@@ -21,8 +43,5 @@
 }
 .avail-btn {
 	overflow: hidden;
-}
-
-.btn-warning, .btn-danger, .btn-success, .btn-info {
 	width: 100%;
 }

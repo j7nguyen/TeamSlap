@@ -1,31 +1,36 @@
 <div class="container">
-	<h2><%= @user.first_name %> <%= @user.last_name %></h2>
-	<p>Email address: <%= @user.email %></p>
-	<p>Gender: <%= @user.gender %></p>
 
+<div class='row header-row'>
+	<div class='col-xs-6 col-md-6 user-info'>
+	<h2><%= @user.first_name %> <%= @user.last_name %></h2>
+	<h4><%= @user.email %></h4>
+</div>
+
+	<div class='col-xs-6 col-md-6 user-teams'>
 	<% if @user.owned_teams %>
-	<p>Teams I Manage:</p>
-	<ul>
+	<h4>Teams I Manage</h4>
+
 		<% @user.owned_teams.each do |team| %>
-		<li><%= link_to team.name, team_url(team) %></li>
+		<a class='btn btn-primary' role='button' href='<%= team_url(team)%>'><%= team.name %></a>
 		<% end %>
-	</ul>
-	<% end %>
+			<% end %>
 
 	<% if @user.teams %>
 	<% user_games = []%>
-	<p>Teams I Play On:</p>
-	<ul>
+	<h4>Teams I Play On:</h4>
+	
 		<% @user.teams.each do |team| %>
 			<% team.games.each { |game| user_games.push(game) } if team.games %>
-			<li><%= link_to team.name, team_url(team) %></li>
+			<a class='btn btn-primary' href='<%= team_url(team) %>'><%= team.name %></a>
 		<% end %>
-	</ul>
 
-	<h3>My Games</h3>
-
+	</div>
+</div>
+	<div class='row user-games'>
+	<div>
+		<h3>My Games</h3>
 	<% if !(user_games.empty?) %>
-	<table class="my-games table table-striped table-bordered">
+	<table class="table table-striped table-bordered">
 		<tr>
 			<th>League</th>
 			<th>Date</th>
@@ -62,7 +67,8 @@
 			</table>
 	<% end %>
 <% end %>
-
+</div>
+</div>
 
 	
 <script>
@@ -74,7 +80,4 @@ $('.avail-btn').on('click', function() {
 });
 
 </script>
-
-	<p><%= link_to "Edit User Information", edit_user_url(@user)%></p>
-
 </div>
