@@ -8,10 +8,10 @@
 			<div class='form-group'>
 				<h3>Date/Time</h3>
 				<label>Date
-					<input type="date" class='form-control' name="game[date]">
+					<input type="text" class='form-control' id="datepicker" name="game[date]">
 				</label>
 				<label>Time
-					<input type="time" class='form-control' name="game[time]">
+					<input type="text" class='form-control ui-timepicker' id="timepicker" name="game[time]">
 				</label>
 			</div>
 			<div class='form-group'>
@@ -44,3 +44,13 @@
 				<input type="submit" class="btn btn-primary" value="Add Game">
 			</form>
 		</div>
+		
+		<script>
+	  $(function() {
+	    $( "#datepicker" ).datepicker();
+			$( "#timepicker" ).ptTimeSelect();
+	  });
+		
+
+				
+		</script>

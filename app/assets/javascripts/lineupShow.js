@@ -7,16 +7,16 @@ var newPosition = function(name, teamId, lineupId) {
 			lineup_id: lineupId
 		}},
 		success: function(response) {
-			$('#positions').append("<div class='row lineup-position' id='" +
-			response.id +"'><div class='lineup-description col col-xs-4'>" + response.name + 
-			"</div><div class='lineup-assignment col col-xs-8 droppable ui-widget-header ui-droppable' id='" +
+			$('#sortable-positions').append("<li><div class='row lineup-position' id='" +
+			response.id +"'><div class='lineup-description col col-xs-5'>" + response.name + 
+			"</div><div class='lineup-assignment col col-xs-7 droppable ui-widget-header ui-droppable' id='" +
 			response.id + "'></div>" +
-			"</div>");
+			"</div></li>");
 			
 			$(function() {
-					$( ".draggable" ).draggable({containment: '.container', revert: 'invalid',
-						cursor: 'move'});
-					$( ".droppable" ).droppable({
+					$( ".draggable" ).draggable({containment: '.lineup-maker', revert: 'invalid',
+						cursor: 'move', zIndex: 1000 });
+					$( ".droppable" ).droppable({ 
 						drop: function( event, ui ) {
 							console.log(this);
 					 	$( this ).addClass( "assigned");
@@ -25,7 +25,8 @@ var newPosition = function(name, teamId, lineupId) {
 						assignPosition(positionId, playerId, lineupId);
 					  },
 					});
-					$('.lineup-assignment').on('dblclick', function() {
+
+					$('.lineup-position#' + response.id).on('dblclick', function() {
 						var lineupId = lineupId;
 						unassign(this.id, lineupId);
 					});
@@ -74,7 +75,7 @@ var addPlayerDiv = function(lineupId, playerId) {
 			", " + response.gender + "</div>");
 			
 			$(function() {
-					$( ".draggable" ).draggable({containment: '.container', revert: 'invalid',
+					$( ".draggable" ).draggable({containment: '.lineup-maker', revert: 'invalid',
 						cursor: 'move'});
 					$( ".droppable" ).droppable({
 						drop: function( event, ui ) {

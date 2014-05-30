@@ -12,11 +12,17 @@
 	padding: 5px;
 }*/
 
+.player-availability {
+	width: 85%;
+}
 
+.update-avail-btn {
+	width: 100%;
+}
 .avail-btn {
 	overflow: hidden;
 }
 
-.btn-warning, .btn-danger, .btn-success {
+.btn-warning, .btn-danger, .btn-success, .btn-info {
 	width: 100%;
 }

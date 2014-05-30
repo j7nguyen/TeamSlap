@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+*= require jquery.ptTimeSelect
 *= require jquery.ui.all
  *= require_tree .
  *= require_self
@@ -30,7 +31,11 @@ th {
 
 }
 
-.navbar {
+button.navbar-toggle {
+	background-color: black;
+}
+
+.navbar-custom {
     background-color: #E97113;
     color: black;
   
@@ -42,7 +47,7 @@ th {
 }
 .navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
     color: black;
-		    background-color:transparent;
+    background-color:transparent;
 }
 .navbar-custom .navbar-brand {
     color: black;

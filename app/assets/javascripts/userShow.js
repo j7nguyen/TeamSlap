@@ -11,7 +11,8 @@ var chooseAvail = function(availId, userId) {
 				"<option id='1' value=1>Available</option>" +
 				"<option id='2' value=2>Unavailable</option>" +
 				"<option id='3' value=3>Maybe</option>" +
-				"</select><input type='submit'  class='btn btn-xs btn-primary' value='Update Availability'></form></div>"
+				"</select><input type='submit'  class='btn btn-xs btn-primary update-avail-btn' " + 
+				"value='Update Availability'></form></div>"
 			);
 
 			var availValue = response.available_value;

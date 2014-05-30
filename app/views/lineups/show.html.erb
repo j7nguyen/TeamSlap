@@ -1,24 +1,39 @@
-<h2><%= @lineup.team.name %> Lineup for <%= Date.parse(@lineup.game.date) %></h2>
-<div class='container'>
+<div class='container title-div'>
+<h2><%= @lineup.team.name %> Lineup for <%= @lineup.game.date_disp %></h2>
+</div>
+
+<div class='container lineup-maker'>
 	<div class='row'>
-		
+
+			<div class='col col-xs-3' id='instructions'>
+				<h3>About This Feature</h3>
+				<p>Use the position maker to create custom positions for this lineup.</p>
+				
+				<p>You can drag your available players to a lineup position to assign them.
+					To undo an assignment, double-click on the player's name and they will
+					appear back in your list of available players.</p>
+			</div>
+			
 		<div class='col col-xs-5'>
 			<h3>Positions</h3>
 			<div id="positions">
+				<ol id="sortable-positions">
 				<% if @lineup.positions %>
-					<% @lineup.positions.each do |position| %>
-					<div class='row lineup-position' id='<%= position.id %>'>
-						<div class='lineup-description col col-xs-4'>
+					<% @lineup.positions.sort_by{|pos| pos.id}.each do |position| %>
+					<li class="ui-state-default"><div class='row lineup-position' id='<%= position.id %>'>
+						<div class='lineup-description col col-xs-5'>
 						<%= position.name %>
 					</div>
-					<div class='lineup-assignment col col-xs-8 droppable ui-widget-header' id='<%= position.id %>'>
+					<div class='lineup-assignment col col-xs-7 droppable ui-widget-header' id='<%= position.id %>'>
 						<% if position.player %>
 							<%= position.player.name + ", " + position.player.gender %>
 						<% end %>
 					</div>
 					</div>
+				</li>
 					<% end %>
 				<% end %>
+			</ol>
 			</div>
 			<div>
 				To add a new position, enter its name below and submit.
@@ -28,7 +43,7 @@
 			</div>
 		</div>
 		
-		<div class='col col-xs-5' id='available-players'>
+		<div class='col col-xs-3' id='available-players'>
 			<h3>Available Players</h3>
 
 				<% @lineup.available_players.each do |player| %>
@@ -43,6 +58,11 @@
 </div>
 
 <script>
+$(function() {
+  $( "#sortable-positions" ).sortable();
+  $( "#sortable-positions" ).disableSelection();
+});
+
 $('#addPosition').on('submit', function(event) {
 	event.preventDefault();
 	var name = $('#positionName').val();
@@ -51,7 +71,7 @@ $('#addPosition').on('submit', function(event) {
 	newPosition(name, teamId, lineupId);
 });
 $(function() {
-		$( ".draggable" ).draggable({containment: '.container', revert: 'invalid',
+		$( ".draggable" ).draggable({containment: '.lineup-maker', revert: 'invalid',
 			cursor: 'move'});
 		$( ".droppable" ).droppable({
 			drop: function( event, ui ) {

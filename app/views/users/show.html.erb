@@ -25,7 +25,7 @@
 	<h3>My Games</h3>
 
 	<% if !(user_games.empty?) %>
-	<table class="my-games table table-striped table-bordered table-hover">
+	<table class="my-games table table-striped table-bordered">
 		<tr>
 			<th>League</th>
 			<th>Date</th>
@@ -73,10 +73,7 @@ $('.avail-btn').on('click', function() {
 	chooseAvail(availId, userId);
 });
 
-
 </script>
-
-	
 
 	<p><%= link_to "Edit User Information", edit_user_url(@user)%></p>
 

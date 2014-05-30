@@ -15,6 +15,7 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require jquery.tablesorter
+//= require jquery.ptTimeSelect
 //= require turbolinks
 //= require bootstrap
 //= require bootstrap/tooltip
