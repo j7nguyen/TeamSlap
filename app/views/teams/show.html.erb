@@ -2,20 +2,28 @@
 <% team = Team.find(params[:id]) %>
 
 <div class='container'>
-	<div class="row">
-		<div class="col-xs-6 col-xs-offset-1">
+	
+	<div class='row header-row'>
+		<div class='col-xs-6 col-md-6 team-info'>
 			<h2><%= team.name %></h2>
 			<p>Sport: <%= team.sport.name %></p>
 			<p>Manager: <%= team.manager.first_name %> <%= team.manager.last_name%></p>
-			<p>League(s):</p>
-			<ul>
-				<% team.leagues.each do |league| %>
-				<% next if league.name == "Non-League" %>
-				<li><%= link_to league.name, league_url(league) %></li>
-				<% end %>
-			</ul>
 		</div>
+	
+	
+		<div class='col-xs-6 col-md-6 team-leagues'>
+	<h3>League(s):</h3>
+
+		<% team.leagues.each do |league| %>
+		<% next if league.name == "Non-League" %>
+		<h4><%= link_to league.name, league_url(league) %></h4>
+		<% end %>
+
+	
 	</div>
+</div>
+	
+
 	
 	<ul class='nav nav-pills nav-justified'>
 		<li class='active'><a href='#upcoming-games' data-toggle='pill'>Upcoming Games</a></li>
@@ -25,7 +33,7 @@
 	<div id='myTabCotent' class='tab-content'>
 		<div class='tab-pane fade active in' id='upcoming-games'>
 			<div class="row">
-				<div class="col-xs-10 col-xs-offset-1">
+				<div class="col-xs-12 col-md-12">
 					<% if team.games %>
 					<p>Click on a row to access more game details.</p>
 					<div class="games-table">
@@ -39,10 +47,10 @@
 								<th>Away Team</th>
 								<th>Location</th>
 							</tr>
-							<% team.games.each do |game| %>
+							<% team.games.sort_by{|match| Date.parse(match.date)}.each do |game| %>
 							<tr class='game' id="<%= game.id %>">
 								<td class='league' id='<%= game.league.id %>'><%= game.league.name %></td>
-								<td><%= game.date %></td>
+								<td><%= game.date_disp %></td>
 								<td><%= game.time %></td>
 								<td><%= game.home_team.name %></td>
 								<td><%= game.result %></td>					
@@ -55,126 +63,124 @@
 					<% else %>
 					<p><em>No games scheduled at this time.</em></p>
 					<% end %>
-				<a href="<%= new_league_game_url(team.nonleague)%>" class='btn btn-warning'>
-					Add New Non-League Game</a>
+					<a href="<%= new_league_game_url(team.nonleague)%>" class='btn btn-warning'>
+						Add New Non-League Game</a>
 					
-				</div>				
-			</div>
-		</div>
-		<div class='tab-pane fade' id='team-roster'>
-			<div class='row'>
-				<div class="col-xs-6 col-xs-offset-1">
-					<table class="roster table table-striped table-bordered table-condensed ">
-						<tr>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Gender</th>
-						</tr>
-						<% team.roster_adds.each do |roster_add| %>
-						<tr class='roster-row' id='<%=roster_add.user.id%>'>
-							<td><%= roster_add.user.first_name %></td>
-							<td><%= roster_add.user.last_name %></td>
-							<td><%= roster_add.user.gender %></td>
-							<% if current_user.id == team.manager_id%>
-							<td><button class='delete-player btn btn-danger btn-xs' value="<%= roster_add.id %>">
-								Delete Player</button></td>
-								<% end %>
-							</tr>
-							<% end %>
-						</table>
-					</div>
-					<div class="col-xs-5"> 
-						<% if current_user.id == team.manager_id %>
-						<div class="row">
-							<div class="col-xs-6 col-xs-offset-1">
-
-								<form id="add_player" role='form' >
-									<div class='form-group'>
-										<%= auth_token_input %>
-										<h3>Add Other Registered <%= team.sport.name %> Players</h3>
-										<select class='form-control' name="roster[player_id]" id="available-players">
-											<% @non_roster_players.each do |player| %>
-											<option id='option-<%=player.id%>' value="<%=player.id %>">
-												<%= player.name %>, <%= player.gender %>
-											</option>
-											<% end %>
-										</select>
-										<input type="hidden" name="roster[team_id]" 
-										value="<%= params[:id] %>">
-										<input type="submit" value="Add Player" class='btn btn-warning'>
-									</div>
-								</form>
-							</div>
-						</div>	
-
-						<% end %>
-					</div>
+					</div>				
 				</div>
-		</div>
-		
-		<div class='tab-pane fade' id='calendar-view'>
+			</div>
+			<div class='tab-pane fade' id='team-roster'>
 				<div class='row'>
-				<div class="col-xs-10 col-xs-offset-1">
-					<% if team.players %>
-											<div class="games-table calendar-view">
-												<table class="schedule table table-striped table-bordered table-hover">
-					<tr>
-						<th>Player \ Game</th>
-						<% team.games.each do |game| %>
-						<th class='game-column' id='<%= game.id %>'>
-							<a href="<%=league_game_url(game.league, game)%>">
-							<%= game.date_disp %><br>
-							vs. <%= team.opponent(game).name %>
-						</a>
-						</th>
-						<% end %>
-					</tr>
-		
-						<% team.players.each do |player| %>
-						<tr>
-							<td><strong><%= player.name %></strong></td>
-							<% team.games.each do |game| %>
-							<td><%= player.availability(game).avail_button %></td>
+
+					<div class="col-xs-6">
+						<table class="roster table table-striped table-bordered table-condensed ">
+							<tr>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Gender</th>
+							</tr>
+							<% team.roster_adds.each do |roster_add| %>
+							<tr class='roster-row' id='<%=roster_add.user.id%>'>
+								<td><%= roster_add.user.first_name %></td>
+								<td><%= roster_add.user.last_name %></td>
+								<td><%= roster_add.user.gender %></td>
+								<% if current_user.id == team.manager_id%>
+								<td><button class='delete-player btn btn-danger btn-xs' value="<%= roster_add.id %>">
+									Delete Player</button></td>
+									<% end %>
+								</tr>
+								<% end %>
+							</table>
+						</div>
+
+						<div class="col-xs-6"> 
+							<% if current_user.id == team.manager_id %>
+							<form id="add_player" role='form' >
+								<div class='form-group'>
+									<%= auth_token_input %>
+									<h3>Add Other Registered <%= team.sport.name %> Players</h3>
+									<select class='form-control' name="roster[player_id]" id="available-players">
+										<% @non_roster_players.each do |player| %>
+										<option id='option-<%=player.id%>' value="<%=player.id %>">
+											<%= player.name %>, <%= player.gender %>
+										</option>
+										<% end %>
+									</select>
+									<input type="hidden" name="roster[team_id]" 
+									value="<%= params[:id] %>">
+									<input type="submit" value="Add Player" class='btn btn-warning'>
+								</div>
+							</form>							
 							<% end %>
-						</tr>
-						<% end %>
-				</table>
-					<% else %>
-						<p>There is no one on this team yet.</p>
-					<% end %>
+						</div>
+						
+					</div>
+				</div>
+
+		
+			<div class='tab-pane fade' id='calendar-view'>
+				<div class='row'>
+					<div class="col-xs-12 col-md-12">
+						<% if team.players %>
+						<div class="games-table calendar-view">
+							<table class="schedule table table-striped table-bordered table-hover">
+								<tr>
+									<th>Player \ Game</th>
+									<% team.games.sort_by{|match| Date.parse(match.date)}.each do |game| %>
+									<th class='game-column' id='<%= game.id %>'>
+										<a href="<%=league_game_url(game.league, game)%>">
+											<%= game.date_disp %><br>
+											vs. <%= team.opponent(game).name %>
+										</a>
+									</th>
+									<% end %>
+								</tr>
+		
+								<% team.players.each do |player| %>
+								<tr>
+									<td><strong><%= player.name %></strong></td>
+									<% team.games.each do |game| %>
+									<td><%= player.availability(game).avail_button %></td>
+									<% end %>
+								</tr>
+								<% end %>
+							</table>
+							<% else %>
+							<p>There is no one on this team yet.</p>
+							<% end %>
+						</div>
+					</div>
 				</div>
 			</div>
-			</div>
 		</div>
-	</div>
 	
-	<script>
-	$('#myTab a').click(function (e) {
-	  e.preventDefault()
-	  $(this).tab('show')
-	});
+		<script>
+		$('#myTab a').click(function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		});
 	
-	$('.game').css('cursor', 'pointer');
-	$('.game').on('click', function() {
-		var gameId = this.id;
-		var leagueId = $('.game#' + gameId + ' .league')[0].id;
-		window.location.href = ("/leagues/" + leagueId + "/games/" + gameId)
-	});
+		$('.game').css('cursor', 'pointer');
+		$('.game').on('click', function() {
+			var gameId = this.id;
+			var leagueId = $('.game#' + gameId + ' .league')[0].id;
+			window.location.href = ("/leagues/" + leagueId + "/games/" + gameId)
+		});
 
-	$('.roster').on('click', 'button', function() {
-		var rosterAddId = this.value;
-		var userId = $(this).parent().parent()[0].id
-		$(this).parent().parent()[0].remove();
-		playerRemove(rosterAddId, <%= team.id %>);
-	});
+		$('.roster').on('click', 'button', function() {
+			var rosterAddId = this.value;
+			var userId = $(this).parent().parent()[0].id
+			$(this).parent().parent()[0].remove();
+			playerRemove(rosterAddId, <%= team.id %>);
+		});
 		
-	$('#add_player').on('submit', function(event) {
-		event.preventDefault();
-		var playerId = $("#available-players").val();
-		var formData = {roster: {
-			player_id: playerId,
-			team_id: <%= team.id %>
-		}}
-		playerAdd(formData, <%= team.id %>, playerId);
-	});
-	</script>
+		$('#add_player').on('submit', function(event) {
+			event.preventDefault();
+			var playerId = $("#available-players").val();
+			var formData = {roster: {
+				player_id: playerId,
+				team_id: <%= team.id %>
+			}}
+			playerAdd(formData, <%= team.id %>, playerId);
+		});
+		</script>

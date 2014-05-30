@@ -1,92 +1,120 @@
 <div class="container">
-	<h1><%= @league.name %></h1>
-	<h3>Sport: <%= @league.sport.name %></h3>
-	<h3>Manager: <%= @league.manager.name %></h3>
-	<h2>Teams</h2>
-	<% if @league.teams %>
-		<table id='league-teams' class='tablesorter table table-striped table-bordered table-condensed'>
-			<thead>
-			<tr>
-				<th>Team Name</th>
-				<th>Manager</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% @league.team_adds.each do |team_add| %>
-			<tr>
-				<td><%= link_to team_add.team.name, team_url(team_add.team) %></td>
-				<td><%= team_add.team.manager.name %></td>
-				<% if current_user && current_user.id == @league.league_manager_id %>
-					<td><%= button_to "Remove Team from League", league_team_add_url(@league, team_add), method: :delete %></td>
-				<% end %>
-			</tr>
-		<% end %>
-	</tbody>
-		</table>
-	<% end>%>
-
-	<% if current_user && current_user.id == @league.league_manager_id %>
 	
-		<form action="<%= league_team_adds_url(params[:id]) %>" method="POST">
-			<%= auth_token_input %>
-			<input type="hidden" name="team_add[league_id]" value="<%= @league.id %>">
-			<% if @league.sport.teams %>
-			<h3>Available <%= @league.sport.name %> Teams:</h3>
-			<select name="team_add[team_id]" id="team_id">
-				<% @league.sport.teams.each do |team| %>
-				<% next if @league.teams.include?(team) %>
-				<option value="<%= team.id %>"><%= team.name %></option>
+	<div class='row header-row'>
+	<h2><%= @league.name %></h2>
+	<h4>Sport: <%= @league.sport.name %></h4>
+	<h4>Manager: <%= @league.manager.name %></h4>
+</div>
 
-			</select>
-				<% end %>
-			<% end %>
-			<p><input type="submit" value="Add Team to League"></p>
-		</form>
-	<% end %>
-
-	<h2>Schedule</h2>	
-	<% if !@league.games.empty? %>
-		<table id="league-schedule" class="tablesorter table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Time</th>
-					<th>Home Team</th>
-					<th>Result</th>
-					<th>Away Team</th>
-					<th>Location</th>
-					<th>Game Info</th>
-				</tr>
-		</thead>
-		<tbody>
-		<% @league.games.sort_by{|match| Date.parse(match.date)}.each do |game|%>
-			<tr>
-				<td><%= game.date_disp %></td>
-				<td><%= game.time %></td>
-				<td><%= game.home_team.name %></td>
-				<td><%= game.result %></td>
-				<td><%= game.away_team.name %></td>
-				<td><%= game.location.name %></td>
-				<td><%= link_to "Game Info and Avails", league_game_url(@league, game)%></td>
-			</tr>
-		<% end %>
-	</tbody>
-	</table>
-	<% else %>
-		<p><em>No games are scheduled at this time.</em></p>
-	<% end %>
+	<ul class='nav nav-pills nav-justified'>
+		<li class='active'><a href='#league-teams' data-toggle='pill'>Teams</a></li>
+		<li><a href='#league-schedule' data-toggle='pill'>Schedule</a></li>
+	</ul>
 	
-	<% if current_user && current_user.id == @league.league_manager_id %>
-		<a href="<%= new_league_game_url(@league) %>" class="btn btn-primary">Add a Game</a>
-	<% end %>
+	<div id='myTabCotent' class='tab-content'>
+		
+				<div class='tab-pane fade active in' id='league-teams'>
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<h3>Teams</h3>
+							<% if @league.teams %>
+								<table id='league-teams' class='tablesorter table table-striped table-bordered table-condensed'>
+									<thead>
+									<tr>
+										<th>Team Name</th>
+										<th>Manager</th>
+									</tr>
+								</thead>
+								<tbody>
+								<% @league.team_adds.each do |team_add| %>
+									<tr>
+										<td><%= link_to team_add.team.name, team_url(team_add.team) %></td>
+										<td><%= team_add.team.manager.name %></td>
+										<% if current_user && current_user.id == @league.league_manager_id %>
+											<td><%= button_to "Remove Team from League", league_team_add_url(@league, team_add), method: :delete %></td>
+										<% end %>
+									</tr>
+								<% end %>
+							</tbody>
+								</table>
+							<% end>%>
+
+							<% if current_user && current_user.id == @league.league_manager_id %>
+	
+								<form action="<%= league_team_adds_url(params[:id]) %>" method="POST">
+									<%= auth_token_input %>
+									<input type="hidden" name="team_add[league_id]" value="<%= @league.id %>">
+									<% if @league.sport.teams %>
+									<h3>Available <%= @league.sport.name %> Teams:</h3>
+									<select name="team_add[team_id]" id="team_id">
+										<% @league.sport.teams.each do |team| %>
+										<% next if @league.teams.include?(team) %>
+										<% next if team.name = "Other" %>
+										<option value="<%= team.id %>"><%= team.name %></option>
+
+									</select>
+										<% end %>
+									<% end %>
+									<p><input type="submit" value="Add Team to League"></p>
+								</form>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				
+				<div class='tab-pane fade' id='league-schedule'>
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<h2>Schedule</h2>	
+							<% if !@league.games.empty? %>
+								<table id="league-schedule" class="tablesorter table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Home Team</th>
+											<th>Result</th>
+											<th>Away Team</th>
+											<th>Location</th>
+											<th>Game Info</th>
+										</tr>
+								</thead>
+								<tbody>
+								<% @league.games.sort_by{|match| Date.parse(match.date)}.each do |game|%>
+									<tr>
+										<td><%= game.date_disp %></td>
+										<td><%= game.time %></td>
+										<td><%= game.home_team.name %></td>
+										<td><%= game.result %></td>
+										<td><%= game.away_team.name %></td>
+										<td><%= game.location.name %></td>
+										<td><%= link_to "Game Info and Avails", league_game_url(@league, game)%></td>
+									</tr>
+								<% end %>
+							</tbody>
+							</table>
+							<% else %>
+								<p><em>No games are scheduled at this time.</em></p>
+							<% end %>
+	
+							<% if current_user && current_user.id == @league.league_manager_id %>
+								<a href="<%= new_league_game_url(@league) %>" class="btn btn-primary">Add a Game</a>
+							<% end %>
 
 
-	<%= link_to "Back to All Leagues", leagues_url %>
+							
+						</div>
+					</div>
+				</div>
+	</div>
+	
+
+							<%= link_to "Back to All Leagues", leagues_url %>
 </div>
 
 <script>
-$(document).ready(function() {
-	$('#league-schedule').tablesorter();
-	$('#league-teams').tablesorter();
+$('#myTab a').click(function (e) {
+	e.preventDefault()
+	$(this).tab('show')
 });
 </script>
