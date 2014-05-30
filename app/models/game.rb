@@ -14,6 +14,7 @@
 #  updated_at     :datetime
 #  date           :string(255)      not null
 #  time           :string(255)      not null
+#  team2_name     :string(255)
 #
 
 class Game < ActiveRecord::Base
@@ -21,7 +22,7 @@ class Game < ActiveRecord::Base
   MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
     'October', 'November', 'December']
   
-  validates :date, :time, :team1_id, :team2_id, :location_id, presence: true
+  validates :date, :time, :team1_id, :team2_id, presence: true
   
   belongs_to :league, foreign_key: :league_id, class_name: "League"
   belongs_to :home_team, foreign_key: :team1_id, class_name: "Team"

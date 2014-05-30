@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
       games.concat(team.games)
     end
     
-    return games.uniq
+    return games.uniq.sort_by{|game| game.date}
   end
   
   def name

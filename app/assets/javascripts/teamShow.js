@@ -1,7 +1,10 @@
 var playerRemove = function(rosterAddId, teamId) {
 	$.ajax({
 		url: ("" + teamId + "/roster_adds/" + rosterAddId),
-		type: 'DELETE'
+		type: 'DELETE',
+		success: function(response) {
+			playerToDropdown(response.player_id);
+		}
 	});
 }
 

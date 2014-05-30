@@ -8,13 +8,18 @@ class GamesController < ApplicationController
       flash[:errors] = ["Only league managers can create new games."]
       redirect_to league_url(@league)
     end
+    
   end
   
   def create
     @game = Game.new(game_params)
     @league = League.find(params[:league_id])
     if @game.save
-      redirect_to league_url(League.find(params[:league_id]))
+      if !@game.team2_name.empty?
+        redirect_to team_url(Team.find(@game.team1_id))
+      else
+        redirect_to league_url(League.find(params[:league_id]))
+      end
     else
       flash.now[:errors] = @game.errors.full_messages
       render :new
@@ -41,6 +46,6 @@ class GamesController < ApplicationController
   private
   
   def game_params
-    params.require(:game).permit(:league_id, :team1_id, :team2_id, :location_id, :date, :time)
+    params.require(:game).permit(:league_id, :team1_id, :team2_id, :location_id, :date, :time, :team2_name)
   end
 end

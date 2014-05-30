@@ -22,11 +22,49 @@ class Team < ActiveRecord::Base
   has_many :lineups
   has_many :lineup_positions, through: :lineups, source: :lineup_positions
 
+  def nonleague
+    non_league = League.where(sport_id: self.sport_id, name: "Non-League", league_manager_id: self.manager_id).first
+    if non_league.nil?
+      non_league = League.create({
+        sport_id: self.sport_id,
+        league_manager_id: self.manager_id,
+        name: "Non-League"
+      })
+    end
+      TeamAdd.create({
+        league_id: non_league.id,
+        team_id: self.id
+      })
+    return non_league
+  end
+  
+  # def new_nonleague_game(options)
+ #    new_team = Team.create({
+ #      name: options[:name],
+ #      manager_id: 0,
+ #      sport_id: self.sport_id
+ #    })
+ #    new_game = Game.create({
+ #      team1_id: self.id,
+ #      team2_id: new_team.id,
+ #      date: options[:date],
+ #      time: options[:time]
+ #    })
+ #  end
+
   def lineup(game)
     return Lineup.where(game_id: game.id, team_id: self.id)
   end
   
+  def opponent(game)
+    if self.id == game.team1_id
+      return game.away_team
+    else
+      return game.home_team
+    end
+  end
+  
   def games
-    return (self.home_games + self.away_games)
+    return (self.home_games + self.away_games).sort_by{|game| game.date}.uniq
   end
 end

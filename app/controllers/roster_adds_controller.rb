@@ -21,10 +21,9 @@ class RosterAddsController < ApplicationController
     @roster_add = RosterAdd.find(params[:id])
     @roster_add.destroy
     
-    respond_to do |format|
-      format.html { head :no_content }
-      format.json { head :no_content }
-    end
+
+        render :json => @roster_add
+
   end
   
   private
