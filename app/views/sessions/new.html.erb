@@ -1,7 +1,7 @@
 <div class="container">
 
 	<form class="form-signin" role='form' action="<%= session_url %>" method="post">
-		<h2 class='form-signin-heading'>Please Sign In</h2>
+		<h2 class='form-signin-heading'>Please Sign In or <%= link_to "Sign Up", new_user_url %></h2>
   <%= auth_token_input %>
  
     <input class='form-control' type="text" name="session[email]" placeholder='Email address' required autofocus>
@@ -9,6 +9,15 @@
 
 	
 	<button class='btn btn-lg btn-primary btn-block' type='submit'>Sign In</button>
+</form>
+
+	<form class="form-signin" role='form' action="<%= session_url %>" method="post">
+  <%= auth_token_input %>
+ 
+    <input class='form-control' type="hidden" name="session[email]" placeholder='Email address' value="joseph@teamslap.com">
+    <input class='form-control' type="hidden" name="session[password]" placeholder='Password' value="foobar">
+	
+	<button class='btn btn-lg btn-warning btn-block' type='submit'>Sign In As Guest</button>
 </form>
 
 </div>
