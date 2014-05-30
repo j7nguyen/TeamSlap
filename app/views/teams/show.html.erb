@@ -10,6 +10,7 @@
 			<p>League(s):</p>
 			<ul>
 				<% team.leagues.each do |league| %>
+				<% next if league.name == "Non-League" %>
 				<li><%= link_to league.name, league_url(league) %></li>
 				<% end %>
 			</ul>
@@ -40,7 +41,7 @@
 							</tr>
 							<% team.games.each do |game| %>
 							<tr class='game' id="<%= game.id %>">
-								<td><%= game.league.name %></td>
+								<td class='league' id='<%= game.league.id %>'><%= game.league.name %></td>
 								<td><%= game.date %></td>
 								<td><%= game.time %></td>
 								<td><%= game.home_team.name %></td>
@@ -146,7 +147,6 @@
 			</div>
 		</div>
 	</div>
-
 	
 	<script>
 	$('#myTab a').click(function (e) {

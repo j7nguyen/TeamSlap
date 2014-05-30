@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
   has_many :lineup_positions, through: :lineups, source: :lineup_positions
 
   def nonleague
-    non_league = League.where(sport_id: self.sport_id, name: "Non-League", league_manager_id: self.manager_id).first
+    non_league = League.where(sport_id: self.sport_id, name: "Non-League", league_manager_id: 0).first
     if non_league.nil?
       non_league = League.create({
         sport_id: self.sport_id,

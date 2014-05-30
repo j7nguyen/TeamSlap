@@ -59,9 +59,9 @@
 				</tr>
 		</thead>
 		<tbody>
-		<% @league.games.each do |game|%>
+		<% @league.games.sort_by{|match| Date.parse(match.date)}.each do |game|%>
 			<tr>
-				<td><%= game.date %></td>
+				<td><%= game.date_disp %></td>
 				<td><%= game.time %></td>
 				<td><%= game.home_team.name %></td>
 				<td><%= game.result %></td>

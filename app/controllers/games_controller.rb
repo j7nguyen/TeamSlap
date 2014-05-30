@@ -15,7 +15,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
     @league = League.find(params[:league_id])
     if @game.save
-      if !@game.team2_name.empty?
+      if @game.team2_name
         redirect_to team_url(Team.find(@game.team1_id))
       else
         redirect_to league_url(League.find(params[:league_id]))

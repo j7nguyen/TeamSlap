@@ -50,6 +50,7 @@
 						<% if current_user.owned_leagues %>
 						<li><em>As Manager</em></li>
 							<% current_user.owned_leagues.each do |league| %>
+							<% next if league.name == "Non-League"%>
 							<li><%= link_to league.name, league_url(league) %></li>
 							<% end %>
 							<li class='divider'></li>								
@@ -57,6 +58,7 @@
 						<% if current_user.leagues %>
 						<li><em>As Player</em></li>
 							<% current_user.leagues.each do |league| %>
+							<% next if league.name == "Non-League"%>
 							<li><%= link_to league.name, league_url(league) %></li>
 							<% end %>
 						<% end %>

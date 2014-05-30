@@ -1,6 +1,7 @@
 <div class="container">
 	<h1>Leagues!</h1>
 	<% @leagues.each do |league| %>
+	<% next if league.name == "Non-League" %>
 	<p><%= link_to "#{league.name}", league_url(league) %>, <%= league.sport.name %></p>
 	<% end %>
 	<a href='<%= new_league_url %>' class='btn btn-primary'>Create a New League</a>

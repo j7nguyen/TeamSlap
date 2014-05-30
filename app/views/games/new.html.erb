@@ -1,17 +1,19 @@
 <div class="container">
+
 	<h2>Add a new game</h2>
 	<p>You can choose matchups from teams in your league. Please choose from an
 		existing location or enter new location information accurately.</p>
 	
 		<form action="<%= league_games_url(@league) %>" class= 'form' method="post" role='form'>
+
 			<%= auth_token_input %>
 			<div class='form-group'>
+
 				<h3>Date/Time</h3>
 				<label>Date
-					<input type="text" class='form-control' id="datepicker" name="game[date]">
-				</label>
+					<input type="text" class='form-control' id="datepicker" name='game[date]'></label>
 				<label>Time
-					<input type="text" class='form-control ui-timepicker' id="timepicker" name="game[time]">
+					<input type="text" class='form-control' id="timepicker" name="game[time]">
 				</label>
 			</div>
 			<div class='form-group'>
@@ -54,12 +56,9 @@
 			</form>
 		</div>
 		
-		<script>
-	  $(function() {
-	    $( "#datepicker" ).datepicker();
-			$( "#timepicker" ).ptTimeSelect();
+	<script>
+	  $(document).ready(function() {
+	    $( "#datepicker" ).datepicker({dateFormat: 'dd-mm-yy'});
+			$('#timepicker').ptTimeSelect();
 	  });
-		
-
-				
-		</script>
+	</script>
