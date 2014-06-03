@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails-backbone'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'better_errors'
