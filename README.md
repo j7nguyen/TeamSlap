@@ -11,3 +11,6 @@ Features common to both:
 Upcoming changes:
 - Design tweaks
 - Ability to save lineup formations for future events to avoid having to create positions for each event.
+
+In Progress:
+- Updating Repo Name, lineup order preservation.
