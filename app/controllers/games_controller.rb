@@ -33,6 +33,13 @@ class GamesController < ApplicationController
   end
   
   def update
+    @game = Game.find(params[:id])
+    if @game.update_attributes(game_params)
+      render json: @game
+    else
+      flash[:errors] = @game.errors.full_messages
+      redirect_to league_url(@game.league)
+    end
   end
   
   def index
@@ -40,12 +47,17 @@ class GamesController < ApplicationController
   
   def show
     @game = Game.find(params[:id])
-    @my_teams = current_user.teams + current_user.owned_teams    
+    @my_teams = current_user.teams + current_user.owned_teams
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @game }
+    end 
   end
   
   private
   
   def game_params
-    params.require(:game).permit(:league_id, :team1_id, :team2_id, :location_id, :date, :time, :team2_name)
+    params.require(:game).permit(:league_id, :team1_id, :team2_id, :location_id,
+     :date, :time, :team2_name, :team1_score, :team2_score)
   end
 end

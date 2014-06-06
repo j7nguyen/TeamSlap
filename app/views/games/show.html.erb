@@ -6,7 +6,7 @@
 	</div>
 	<div class='row'>
 		<div class='col-xs-6 col-md-4'>
-			<h4>Schedule Detals</h4>
+			<h4>Schedule Details</h4>
 			<table class='table table-bordered table-responsive '>
 				<tr>
 					<th>Home Team</th>
@@ -87,7 +87,7 @@
 					<td><%= player.first_name %></td>
 					<td><%= player.last_name %></td>
 					<td><%= player.gender %></td>
-					<td><%= player.availability(@game).avail_string %></td>
+					<td><%= player.availability(@game).avail_button %></td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -100,7 +100,6 @@
 </div>
 
 <script>
-$('.avail-btn').addClass('disabled')
 $('thead').css('cursor','pointer');
 $(document).ready(function() {
 	$('#team-avails').tablesorter();

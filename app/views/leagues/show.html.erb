@@ -85,7 +85,7 @@
 										<td><%= game.date_disp %></td>
 										<td><%= game.time %></td>
 										<td><%= game.home_team.name %></td>
-										<td><%= game.result %></td>
+										<td class='result' id='<%= game.id %>'><%= game.result %></td>
 										<td><%= game.away_team.name %></td>
 										<td><%= game.location.name %></td>
 										<td><%= link_to "Game Info and Avails", league_game_url(@league, game)%></td>
@@ -116,5 +116,11 @@
 $('#myTab a').click(function (e) {
 	e.preventDefault()
 	$(this).tab('show')
+});
+
+$('.result').on('dblclick', function() {
+	var leagueId = <%= @league.id %>;
+	var gameId = (this.id);
+	editResult(gameId, leagueId);
 });
 </script>
