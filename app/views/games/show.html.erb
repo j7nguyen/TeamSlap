@@ -53,6 +53,33 @@
 				</tr>
 			</table>
 		</div>
+
+		<div class='col-xs-6 col-md-4'>
+			<h4>Game Result</h4>
+			<table class='table table-bordered table-responsive'>
+				<tr>
+					<td><%= @game.home_team.name %></td>
+					<% if @game.league.name=='Non-League' %>
+						<td class='home-score non-league-score'><%= @game.team1_score %></td>
+					<% else %>
+						<td><%= @game.team1_score %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td><%= @game.away_team.name %></td>
+					
+					<% if @game.league.name=='Non-League' %>
+						<td class='away-score non-league-score'><%= @game.team2_score %></td>
+					<% else %>
+						<td><%= @game.team2_score %></td>
+					<% end %>
+				</tr>
+			</table>
+			<% if @game.league.name == 'Non-League' %>
+			<p><em>*Because this is a non-league game, you can edit the above 
+				result by double-clicking the score.</em></p>
+			<% end %>
+		</div>
 	</div>
 
 	
@@ -110,4 +137,16 @@ $('.newLineup').on('click', function() {
 	var teamId = this.id;
 	newLineup(gameId, teamId);
 });
+
+$('.non-league-score').on('dblclick', function() {
+	var leagueId = <%= @game.league_id %>;
+	var gameId = <%= @game.id %>;
+	var homeScore = <%= @game.team1_score %>;
+	console.log(homeScore);
+	var awayScore = <%= @game.team2_score %>;
+	editNLResult(gameId, leagueId, homeScore, awayScore);
+});
+
+
+
 </script>

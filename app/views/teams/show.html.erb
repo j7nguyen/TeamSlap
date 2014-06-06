@@ -26,7 +26,8 @@
 
 	
 	<ul class='nav nav-pills nav-justified'>
-		<li class='active'><a href='#upcoming-games' data-toggle='pill'>Upcoming Games</a></li>
+		<li class='active'><a href='#upcoming-games' data-toggle='pill'>
+			Upcoming and Recent Games</a></li>
 		<li><a href='#team-roster' data-toggle='pill'>Roster</a></li>
 		<li><a href='#calendar-view' data-toggle='pill'>Availability Calendar View</a></li>
 	</ul>
@@ -53,7 +54,11 @@
 								<td><%= game.date_disp %></td>
 								<td><%= game.time %></td>
 								<td><%= game.home_team.name %></td>
-								<td><%= game.result %></td>					
+								<% if game.league.name == "Non-League" %>
+									<td class="result"><%= game.result %></td>
+								<% else %>
+									<td><%= game.result %></td>
+								<% end %>
 								<td><%= game.away_team.name %></td>
 								<td><%= game.location.name %></td>
 							</tr>

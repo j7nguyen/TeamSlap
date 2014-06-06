@@ -42,11 +42,42 @@ var updateResult = function(leagueId, gameId, score1, score2) {
 			team2_score: score2
 		}},
 		success: function(response) {
-			$('.result#' + gameId).text("" + response.team1_score + "-" + response.team2_score);
+			$('.result#' + gameId).text("" + response.team1_score + " - " + response.team2_score);
 		}
 	})
 }
 
+var editNLResult = function(gameId, leagueId, homeScore, awayScore) {
+	
+
+	$('.home-score').html("<input id='score1' type='text' size='1' maxlength='2' value=" +
+	homeScore + ">");
+	$('.away-score').html("<input id='score2' type='text' size='1' maxlength='2' value='" +
+	awayScore + "'><br><input type='submit' id='update' value='update'>");
+	
+	
+	$('#update').on('click', function() {
+		var score1 = $('#score1').val();
+		var score2 = $('#score2').val();
+		
+		updateNLResult(leagueId, gameId, score1, score2);
+	});
+
+}
+
+var updateNLResult = function(leagueId, gameId, score1, score2) {
+	$.ajax({
+		url: '/leagues/' + leagueId + '/games/' + gameId,
+		type: 'PATCH',
+		data: { game: {
+			team1_score: score1,
+			team2_score: score2
+		}},
+		success: function(response) {
+			$('.home-score').text(response.team1_score);
+			$('.away-score').text(response.team2_score);		}
+	})
+}
 	// $.ajax({
 	// 	url: ,
 	// 	type: "PATCH",
