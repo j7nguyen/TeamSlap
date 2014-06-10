@@ -141,9 +141,8 @@ $('.newLineup').on('click', function() {
 $('.non-league-score').on('dblclick', function() {
 	var leagueId = <%= @game.league_id %>;
 	var gameId = <%= @game.id %>;
-	var homeScore = <%= @game.team1_score %>;
-	console.log(homeScore);
-	var awayScore = <%= @game.team2_score %>;
+	var homeScore = <%= @game.team1_score || 0 %>;
+	var awayScore = <%= @game.team2_score || 0 %>;
 	editNLResult(gameId, leagueId, homeScore, awayScore);
 });
 
