@@ -18,7 +18,10 @@
 		<% next if league.name == "Non-League" %>
 		<h4><%= link_to league.name, league_url(league) %></h4>
 		<% end %>
-
+		<% if current_user.id == team.manager_id %>
+					<a href="<%= new_league_game_url(team.nonleague)%>" class='btn btn-warning'>
+						Add New Non-League Game</a>
+						<% end %>
 	
 	</div>
 </div>
@@ -68,8 +71,7 @@
 					<% else %>
 					<p><em>No games scheduled at this time.</em></p>
 					<% end %>
-					<a href="<%= new_league_game_url(team.nonleague)%>" class='btn btn-warning'>
-						Add New Non-League Game</a>
+					
 					
 					</div>				
 				</div>

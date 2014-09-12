@@ -14,7 +14,7 @@
 		<a class='btn btn-primary' role='button' href='<%= team_url(team)%>'><%= team.name %></a>
 		<% end %>
 			<% end %>
-
+<a class='btn btn-danger' href="<%= new_team_url %>">Add New Team</a>
 	<% if @user.teams %>
 	<% user_games = []%>
 	<h4>Teams I Play On:</h4>
@@ -72,8 +72,9 @@
 
 	
 <script>
-// $('.editable-availability').css('cursor', 'pointer');
-$('.avail-btn').on('click', function() {
+$('.editable-availability').css('cursor', 'pointer');
+
+$('.avail-button').on('click', function() {
 	var availId = $(this).parent()[0].id;
 	var userId = <%= @user.id %>;
 	chooseAvail(availId, userId);

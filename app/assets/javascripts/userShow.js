@@ -37,7 +37,7 @@ var updateAvail = function(userId, availId, availValue) {
 		success: function(response) {
 			$('.editable-availability#' + response.id).html(response.avail_button);
 
-			$('.avail-btn').on('click', function() {
+			$('.avail-button').on('click', function() {
 				var availId = $(this).parent()[0].id;
 				chooseAvail(availId, userId);
 			});

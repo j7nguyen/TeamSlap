@@ -33,6 +33,7 @@
 							<% current_user.owned_teams.each do |team| %>
 							<li><%= link_to team.name, team_url(team) %></li>
 							<% end %>
+							<li><a class='btn btn-danger' href="<%= new_team_url %>">Add New Team</a></li>
 							<li class='divider'></li>								
 						<% end %>
 						<% if current_user.teams %>
