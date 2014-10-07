@@ -52,8 +52,8 @@ class Availability < ActiveRecord::Base
   def avail_button
     case self.available_value
     when 0
-      return "<div class='avail-button no-response'>".html_safe +
-      "No Response</div>".html_safe
+      return "<div class='avail-button no-reply'>".html_safe +
+      "No Reply</div>".html_safe
     when 1
       return "<div class='avail-button available'>".html_safe +
       "Available</div>".html_safe

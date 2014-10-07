@@ -75,23 +75,8 @@ button.navbar-toggle {
 }
 
 .avail-button {
-	-moz-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
-	box-shadow:inset 0px 1px 0px 0px #c1ed9c;
-	-webkit-border-top-left-radius:0px;
-	-moz-border-radius-topleft:0px;
-	border-top-left-radius:0px;
-	-webkit-border-top-right-radius:0px;
-	-moz-border-radius-topright:0px;
-	border-top-right-radius:0px;
-	-webkit-border-bottom-right-radius:0px;
-	-moz-border-radius-bottomright:0px;
-	border-bottom-right-radius:0px;
-	-webkit-border-bottom-left-radius:0px;
-	-moz-border-radius-bottomleft:0px;
-	border-bottom-left-radius:0px;
 	text-indent:0;
-/*	border:1px solid #83c41a;*/
+	border:1px solid gray;
 	display:inline-block;
 	color:#ffffff;
 	font-family:Arial;
@@ -103,7 +88,7 @@ button.navbar-toggle {
 	width:100%;
 	text-decoration:none;
 	text-align: center;
-	text-shadow:-1px -1px 8px #689324;
+	text-shadow: -1px -1px 0 gray;
 }
 
 .available {
@@ -118,6 +103,6 @@ button.navbar-toggle {
 	background-color: #ded756;
 }
 
-.no-response {
+.no-reply {
 	background-color: #6a6b70;
 }
