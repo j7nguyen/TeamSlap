@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101214234) do
+ActiveRecord::Schema.define(version: 20141101234015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20141101214234) do
   add_index "availabilities", ["game_id"], name: "index_availabilities_on_game_id", using: :btree
   add_index "availabilities", ["player_id", "game_id"], name: "index_availabilities_on_player_id_and_game_id", unique: true, using: :btree
   add_index "availabilities", ["player_id"], name: "index_availabilities_on_player_id", using: :btree
+
+  create_table "formation_positions", force: true do |t|
+    t.string   "name"
+    t.integer  "formation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "formations", force: true do |t|
     t.string   "name"
